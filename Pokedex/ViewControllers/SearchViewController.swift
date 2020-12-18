@@ -42,13 +42,9 @@ extension SearchViewController {
         setupDataSource()
         
         onPokemonViewModelsUpdated()
+        onSearchTextUpdated()
 
-        
-        viewModel.$searchText.sink { _ in
-            
-        }
-        
-        viewModel.getPokemonList()
+        self.viewModel.getPokemonList()
     }
 }
 
@@ -102,6 +98,12 @@ extension SearchViewController {
             self.tableView.reloadSections([section], with: .automatic)
         }
         .store(in: &subscribers)
+    }
+    
+    private func onSearchTextUpdated() {
+        viewModel.$searchText.sink { _ in
+            
+        }
     }
 }
 
