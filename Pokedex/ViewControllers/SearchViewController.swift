@@ -34,6 +34,8 @@ class SearchViewController: BaseViewController {
 extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.getPokemonList()
 
         viewModel.$searchText.sink { _ in
             

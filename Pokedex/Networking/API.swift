@@ -21,7 +21,7 @@ struct API {
 
 extension API {
     @discardableResult
-    func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model?, NetworkError> {
+    func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model, NetworkError> {
         
         Future { promise in
             session
@@ -33,7 +33,11 @@ extension API {
                     headers: endPoint.afHttpHeaders
                 )
                 .validate()
+                .onURLRequestCreation(perform: {
+                    NetworkLogger.log(.outGoing($0))
+                })
                 .responseData { (response) in
+                    NetworkLogger.log(.inComing(response.data, response.response, response.error))
                     if let error = response.error {
                         let networkError = NetworkError(responseCode: error.responseCode)
                         promise(.failure(networkError))

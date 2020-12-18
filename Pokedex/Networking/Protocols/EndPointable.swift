@@ -10,6 +10,7 @@ import Alamofire
 
 typealias HTTPHeaders = [String: String]
 typealias Parameters = [String: Any]
+typealias Files = [Fileable]
 
 protocol EndPointable {
     var baseURL: URL { get }
@@ -18,7 +19,7 @@ protocol EndPointable {
     var parameters: Parameters? { get }
     var arrayOfParameters: [Parameters]? { get }
     var headers: HTTPHeaders? { get }
-    var files: [Fileable]? { get }
+    var files: Files? { get }
 }
 
 extension EndPointable {
