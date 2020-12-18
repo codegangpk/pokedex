@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F5258CDAAE00B52A6C /* AppDelegate.swift */; };
 		695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F7258CDAAE00B52A6C /* SceneDelegate.swift */; };
-		695175FA258CDAAE00B52A6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F9258CDAAE00B52A6C /* ContentView.swift */; };
+		695175FA258CDAAE00B52A6C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F9258CDAAE00B52A6C /* SearchView.swift */; };
 		695175FC258CDAB000B52A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695175FB258CDAB000B52A6C /* Assets.xcassets */; };
 		695175FF258CDAB000B52A6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695175FE258CDAB000B52A6C /* Preview Assets.xcassets */; };
 		69517602258CDAB000B52A6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69517600258CDAB000B52A6C /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		695175F2258CDAAE00B52A6C /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		695175F5258CDAAE00B52A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		695175F7258CDAAE00B52A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		695175F9258CDAAE00B52A6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		695175F9258CDAAE00B52A6C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		695175FB258CDAB000B52A6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		695175FE258CDAB000B52A6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		69517601258CDAB000B52A6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,10 +58,8 @@
 			children = (
 				695175F5258CDAAE00B52A6C /* AppDelegate.swift */,
 				695175F7258CDAAE00B52A6C /* SceneDelegate.swift */,
-				695175F9258CDAAE00B52A6C /* ContentView.swift */,
-				695175FB258CDAB000B52A6C /* Assets.xcassets */,
-				69517600258CDAB000B52A6C /* LaunchScreen.storyboard */,
-				69517603258CDAB000B52A6C /* Info.plist */,
+				6951760A258CDF9F00B52A6C /* Views */,
+				6951760D258CE06200B52A6C /* Assets */,
 				695175FD258CDAB000B52A6C /* Preview Content */,
 			);
 			path = Pokedex;
@@ -73,6 +71,24 @@
 				695175FE258CDAB000B52A6C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6951760A258CDF9F00B52A6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				695175F9258CDAAE00B52A6C /* SearchView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6951760D258CE06200B52A6C /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				695175FB258CDAB000B52A6C /* Assets.xcassets */,
+				69517600258CDAB000B52A6C /* LaunchScreen.storyboard */,
+				69517603258CDAB000B52A6C /* Info.plist */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,7 +163,7 @@
 			files = (
 				695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */,
 				695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */,
-				695175FA258CDAAE00B52A6C /* ContentView.swift in Sources */,
+				695175FA258CDAAE00B52A6C /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,7 +306,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Pokedex/Preview Content\"";
 				DEVELOPMENT_TEAM = 4EF6BS625Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Pokedex/Info.plist;
+				INFOPLIST_FILE = Pokedex/Assets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,7 +327,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Pokedex/Preview Content\"";
 				DEVELOPMENT_TEAM = 4EF6BS625Y;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Pokedex/Info.plist;
+				INFOPLIST_FILE = Pokedex/Assets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
