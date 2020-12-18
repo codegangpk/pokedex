@@ -9,6 +9,7 @@ import Foundation
 
 class SearchViewViewModel: BaseViewViewModel, ObservableObject {
     @Published var searchText: String = ""
+    @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
     
     private let pokemonRepository: PokemonRepository
     
@@ -19,7 +20,17 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
 
 extension SearchViewViewModel {
     func getPokemonList() {
-        pokemonRepository
-            .getPokemonList()
+        utility.call(pokemonRepository.getPokemonList()) { [weak self] in
+            guard let self = self else { return }
+            
+            switch $0 {
+            case .success(let pokemonSearchResults):
+                self.pokemonViewModels = pokemonSearchResults.pokemons?
+                    .compactMap { PokemonTableViewCellViewModel(pokemonSearchResult: $0) } ?? []
+                print("viewModels: \(self.pokemonViewModels)")
+            case .failure:
+                break
+            }
+        }
     }
 }

@@ -18,20 +18,16 @@ struct PokemonRepository {
 }
 
 extension PokemonRepository {
-    func getPokemonList() -> AnyPublisher<PokemonSearchResult, NetworkError> {
+    func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError> {
         session.call(
             EndPoint(
                 baseURL: mockingBaseURL,
-                httpMethod: .post,
-                path: "pokemon_name",
-                parameters: [
-                    "hi" : "bye",
-                    "hi2" : "bye111"
-                ]
+                httpMethod: .get,
+                path: "pokemon_name"
             ),
-            for: PokemonSearchResultModel.self
+            for: PokemonSearchResultsModel.self
         )
-        .compactMap { PokemonSearchResult(pokemonSearchResultModel: $0) }
+        .compactMap { PokemonSearchResults(pokemonSearchResultsModel: $0) }
         .eraseToAnyPublisher()
     }
 }

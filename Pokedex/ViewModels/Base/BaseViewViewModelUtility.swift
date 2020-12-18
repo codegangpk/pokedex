@@ -16,9 +16,9 @@ class BaseViewViewModelUtility: ObservableObject {
 
 extension BaseViewViewModelUtility {
     func call<T>(
-        _ request: AnyPublisher<T, Error>,
+        _ request: AnyPublisher<T, NetworkError>,
         showLoader: Bool = true,
-        completion: @escaping (Result<T, Error>) -> Void
+        completion: @escaping (Result<T, NetworkError>) -> Void
     )
     {
         if showLoader {

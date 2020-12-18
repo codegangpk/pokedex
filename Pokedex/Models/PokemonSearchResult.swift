@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PokemonSearchResult {
+struct PokemonSearchResult: Equatable {
     let id: Int
     let names: [String]
     
