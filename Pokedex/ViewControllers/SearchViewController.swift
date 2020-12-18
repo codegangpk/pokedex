@@ -35,6 +35,9 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.$searchText.sink { _ in
+            
+        }
     }
 }
 
