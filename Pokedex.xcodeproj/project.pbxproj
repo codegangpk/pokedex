@@ -13,6 +13,8 @@
 		695175FC258CDAB000B52A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695175FB258CDAB000B52A6C /* Assets.xcassets */; };
 		695175FF258CDAB000B52A6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695175FE258CDAB000B52A6C /* Preview Assets.xcassets */; };
 		69517602258CDAB000B52A6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69517600258CDAB000B52A6C /* LaunchScreen.storyboard */; };
+		69517610258CE29700B52A6C /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6951760F258CE29700B52A6C /* SearchBar.swift */; };
+		69517613258CE40500B52A6C /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69517612258CE40500B52A6C /* SearchViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		695175FE258CDAB000B52A6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		69517601258CDAB000B52A6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69517603258CDAB000B52A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6951760F258CE29700B52A6C /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		69517612258CE40500B52A6C /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 				695175F5258CDAAE00B52A6C /* AppDelegate.swift */,
 				695175F7258CDAAE00B52A6C /* SceneDelegate.swift */,
 				6951760A258CDF9F00B52A6C /* Views */,
+				69517615258CE40800B52A6C /* ViewModels */,
 				6951760D258CE06200B52A6C /* Assets */,
 				695175FD258CDAB000B52A6C /* Preview Content */,
 			);
@@ -77,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				695175F9258CDAAE00B52A6C /* SearchView.swift */,
+				6951760F258CE29700B52A6C /* SearchBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -89,6 +95,14 @@
 				69517603258CDAB000B52A6C /* Info.plist */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		69517615258CE40800B52A6C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				69517612258CE40500B52A6C /* SearchViewViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,7 +176,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */,
+				69517610258CE29700B52A6C /* SearchBar.swift in Sources */,
 				695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */,
+				69517613258CE40500B52A6C /* SearchViewViewModel.swift in Sources */,
 				695175FA258CDAAE00B52A6C /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

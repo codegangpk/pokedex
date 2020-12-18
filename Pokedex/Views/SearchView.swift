@@ -7,15 +7,24 @@
 
 import SwiftUI
 
-struct SearchView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
+struct SearchView {
+    @ObservedObject private var viewModel: SearchViewViewModel
+    
+    init(viewModel: SearchViewViewModel) {
+        self.viewModel = viewModel
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+extension SearchView: View {
+    var body: some View {
+        VStack {
+            SearchBar(searchText: $viewModel.searchText)
+        }
+    }
+}
+
+struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView(viewModel: SearchViewViewModel())
     }
 }
