@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		693F9727258CE8FC00105167 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693F9726258CE8FC00105167 /* SFSymbols.swift */; };
 		693F972C258CE9E000105167 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693F972B258CE9E000105167 /* View+Extension.swift */; };
+		693F9736258CEBED00105167 /* PokemonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693F9735258CEBED00105167 /* PokemonRow.swift */; };
+		693F9739258CEC8600105167 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693F9738258CEC8600105167 /* List.swift */; };
+		693F973C258CECC200105167 /* TableViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693F973B258CECC200105167 /* TableViewStyle.swift */; };
 		695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F5258CDAAE00B52A6C /* AppDelegate.swift */; };
 		695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F7258CDAAE00B52A6C /* SceneDelegate.swift */; };
 		695175FA258CDAAE00B52A6C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F9258CDAAE00B52A6C /* SearchView.swift */; };
@@ -24,6 +27,9 @@
 /* Begin PBXFileReference section */
 		693F9726258CE8FC00105167 /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		693F972B258CE9E000105167 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		693F9735258CEBED00105167 /* PokemonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonRow.swift; sourceTree = "<group>"; };
+		693F9738258CEC8600105167 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		693F973B258CECC200105167 /* TableViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewStyle.swift; sourceTree = "<group>"; };
 		695175F2258CDAAE00B52A6C /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		695175F5258CDAAE00B52A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		695175F7258CDAAE00B52A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +61,17 @@
 				693F972B258CE9E000105167 /* View+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		693F9730258CEB0600105167 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				6951760F258CE29700B52A6C /* SearchBar.swift */,
+				693F9735258CEBED00105167 /* PokemonRow.swift */,
+				693F9738258CEC8600105167 /* List.swift */,
+				693F973B258CECC200105167 /* TableViewStyle.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 		695175E9258CDAAE00B52A6C = {
@@ -99,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				695175F9258CDAAE00B52A6C /* SearchView.swift */,
-				6951760F258CE29700B52A6C /* SearchBar.swift */,
+				693F9730258CEB0600105167 /* ViewComponents */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,9 +223,12 @@
 				695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */,
 				69517610258CE29700B52A6C /* SearchBar.swift in Sources */,
 				693F9727258CE8FC00105167 /* SFSymbols.swift in Sources */,
+				693F973C258CECC200105167 /* TableViewStyle.swift in Sources */,
 				695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */,
 				69517613258CE40500B52A6C /* SearchViewViewModel.swift in Sources */,
 				695175FA258CDAAE00B52A6C /* SearchView.swift in Sources */,
+				693F9739258CEC8600105167 /* List.swift in Sources */,
+				693F9736258CEBED00105167 /* PokemonRow.swift in Sources */,
 				69531B7F258CE6680002B627 /* BaseViewViewModelUtility.swift in Sources */,
 				693F972C258CE9E000105167 /* View+Extension.swift in Sources */,
 				69531B75258CE5D00002B627 /* BaseViewViewModel.swift in Sources */,

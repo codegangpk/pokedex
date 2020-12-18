@@ -19,6 +19,11 @@ extension SearchView: View {
     var body: some View {
         VStack {
             SearchBar(searchText: $viewModel.searchText)
+            List {
+                ForEach(0..<100) { _ in
+                    PokemonRow()
+                }
+            }
         }
     }
 }
