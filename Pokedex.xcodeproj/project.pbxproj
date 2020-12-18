@@ -21,6 +21,7 @@
 		69531B75258CE5D00002B627 /* BaseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69531B74258CE5D00002B627 /* BaseViewViewModel.swift */; };
 		69531B7F258CE6680002B627 /* BaseViewViewModelUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69531B7E258CE6680002B627 /* BaseViewViewModelUtility.swift */; };
 		69D7D331258D1AC5000857D5 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D7D330258D1AC5000857D5 /* DataSource.swift */; };
+		69D7D334258D1C10000857D5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D7D333258D1C10000857D5 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		69D7D32D258D1A94000857D5 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		69D7D32E258D1A94000857D5 /* BaseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseTableViewCell.xib; sourceTree = "<group>"; };
 		69D7D330258D1AC5000857D5 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		69D7D333258D1C10000857D5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		6951760A258CDF9F00B52A6C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				69D7D333258D1C10000857D5 /* BaseViewController.swift */,
 				690FA71C258D1995000424BD /* SearchViewController.swift */,
 				690FA71D258D1995000424BD /* SearchViewController.xib */,
 			);
@@ -232,6 +235,7 @@
 			files = (
 				695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */,
 				693F9727258CE8FC00105167 /* SFSymbols.swift in Sources */,
+				69D7D334258D1C10000857D5 /* BaseViewController.swift in Sources */,
 				690FA71E258D1995000424BD /* SearchViewController.swift in Sources */,
 				695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */,
 				69517613258CE40500B52A6C /* SearchViewViewModel.swift in Sources */,

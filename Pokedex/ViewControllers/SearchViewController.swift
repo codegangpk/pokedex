@@ -15,11 +15,13 @@ private enum Row {
     case pokemon
 }
 
-class SearchViewController: UIViewController {
+class SearchViewController: BaseViewController {
     private var dataSource = DataSource<Section, Row>()
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
+    private let viewModel = SearchViewViewModel()
+    
+    override init() {
+        super.init()
         
         title = "포켓몬 도감"
     }
