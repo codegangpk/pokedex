@@ -7,6 +7,6 @@
 
 import Foundation
 
-class BaseViewViewModel: ObservableObject {
+class BaseViewViewModel {
     let utility = BaseViewViewModelUtility()
 }

@@ -12,10 +12,16 @@ struct SearchBar: View {
     
     var body: some View {
         VStack {
-            TextField("포켓몬 이름을 입력하세요.", text: $searchText)
+            HStack {
+                TextField("포켓몬 이름을 입력하세요.", text: $searchText)
+                SFSymbols.xmarkCircleFill.image
+                    .onTap {
+                        searchText.removeAll()
+                    }
+            }
             Divider()
         }
-        
+        .padding()
     }
 }
 

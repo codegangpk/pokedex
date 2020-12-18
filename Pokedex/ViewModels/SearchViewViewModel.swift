@@ -7,6 +7,6 @@
 
 import Foundation
 
-class SearchViewViewModel: BaseViewViewModel {
+class SearchViewViewModel: BaseViewViewModel, ObservableObject {
     @Published var searchText: String = ""
 }
