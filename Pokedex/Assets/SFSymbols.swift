@@ -5,12 +5,12 @@
 //  Created by Paul Kim on 2020/12/18.
 //
 
-import SwiftUI
+import UIKit
 
 enum SFSymbols: String {
     case xmarkCircleFill = "xmark.circle.fill"
         
-    var image: Image {
-        Image(systemName: self.rawValue)
+    var image: UIImage? {
+        UIImage(systemName: self.rawValue)
     }
 }
