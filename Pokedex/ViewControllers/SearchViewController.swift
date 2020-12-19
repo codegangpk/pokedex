@@ -90,7 +90,7 @@ extension SearchViewController: UITableViewDelegate {
         let row = dataSource.item(for: indexPath)
         switch row {
         case .pokemon(let viewModel):
-            break
+            PokemonViewController.push(in: self)
         }
     }
     
