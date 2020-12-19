@@ -70,7 +70,6 @@ extension PokemonViewController {
             .sink { [weak self] pokemon in
                 guard let self = self else { return }
                 
-                print("pokemon: \(pokemon)")
                 self.setupDataSource(pokemon: pokemon)
 
                 guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
