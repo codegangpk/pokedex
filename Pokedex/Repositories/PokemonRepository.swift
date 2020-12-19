@@ -19,7 +19,7 @@ struct PokemonRepository {
 
 extension PokemonRepository {
     func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError> {
-        session.call(
+        return session.call(
             EndPoint(
                 baseURL: mockingBaseURL,
                 httpMethod: .get,

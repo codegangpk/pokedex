@@ -37,14 +37,17 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.titleView = SearchBar() { [weak self] _, text in
+            guard let self = self else { return }
+            
+            self.viewModel.searchText = text
+        }
+        
         tableView.register(PokemonTableViewCell.nib, forCellReuseIdentifier: PokemonTableViewCell.reuseIdentifier)
         
         setupDataSource()
         
         onPokemonViewModelsUpdated()
-        onSearchTextUpdated()
-
-        self.viewModel.getPokemonList()
     }
 }
 
@@ -87,23 +90,18 @@ extension SearchViewController: UITableViewDelegate {
 
 extension SearchViewController {
     private func onPokemonViewModelsUpdated() {
-        viewModel.$pokemonViewModels.sink { value in
-            self.setupDataSource()
-            
-            let rows: [Row] = value.compactMap { .pokemon($0) }
-            self.dataSource.append(rows, in: .pokemons)
-            
-            guard let section = self.dataSource.sectionIndex(of: .pokemons) else { return }
-            
-            self.tableView.reloadSections([section], with: .automatic)
-        }
-        .store(in: &subscribers)
-    }
-    
-    private func onSearchTextUpdated() {
-        viewModel.$searchText.sink { _ in
-            
-        }
+        viewModel.$pokemonViewModels
+            .sink { value in
+                self.setupDataSource()
+                
+                let rows: [Row] = value.compactMap { .pokemon($0) }
+                self.dataSource.append(rows, in: .pokemons)
+                
+                guard let section = self.dataSource.sectionIndex(of: .pokemons) else { return }
+                
+                self.tableView.reloadSections([section], with: .automatic)
+            }
+            .store(in: &subscribers)
     }
 }
 

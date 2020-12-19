@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class SearchViewViewModel: BaseViewViewModel, ObservableObject {
     @Published var searchText: String = ""
@@ -13,24 +14,33 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
     
     private let pokemonRepository: PokemonRepository
     
+    var subscribers = Set<AnyCancellable>()
+    
     init(pokemonRepository: PokemonRepository = PokemonRepository()) {
         self.pokemonRepository = pokemonRepository
-    }
-}
-
-extension SearchViewViewModel {
-    func getPokemonList() {
-        utility.call(pokemonRepository.getPokemonList()) { [weak self] in
-            guard let self = self else { return }
-            
-            switch $0 {
-            case .success(let pokemonSearchResults):
-                self.pokemonViewModels = pokemonSearchResults.pokemons?
-                    .compactMap { PokemonTableViewCellViewModel(pokemonSearchResult: $0) } ?? []
-                print("viewModels: \(self.pokemonViewModels)")
-            case .failure:
-                break
+        
+        super.init()
+        
+        $searchText
+            .handleEvents(receiveOutput: { [weak self] value in
+                guard let self = self else { return }
+                print("value: \(value)")
+                self.pokemonViewModels.removeAll()
+            })
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .map { _ in pokemonRepository.getPokemonList() }
+            .switchToLatest()
+            .sink { [weak self] (error) in
+                guard let self = self else { return }
+                
+                self.utility.isLoading = false
+            } receiveValue: { [weak self] pokemonSearchResults in
+                guard let self = self else { return }
+                
+                self.pokemonViewModels = pokemonSearchResults.pokemons?.compactMap {
+                    PokemonTableViewCellViewModel(pokemonSearchResult: $0)
+                } ?? []
             }
-        }
+            .store(in: &subscribers)
     }
 }
