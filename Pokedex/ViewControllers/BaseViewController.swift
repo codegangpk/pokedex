@@ -21,3 +21,16 @@ class BaseViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension BaseViewController {
+    func subscribeForLoading(for isLoading: Published<Bool>.Publisher) {
+        isLoading.sink {
+            if $0 {
+                self.view.showLoader()
+            } else {
+                self.view.hideLoader()
+            }
+        }
+        .store(in: &subscribers)
+    }
+}

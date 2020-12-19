@@ -47,17 +47,7 @@ extension SearchViewController {
         
         setupDataSource()
         
-        viewModel.utility.$isLoading.sink { [weak self] in
-            guard let self = self else { return }
-            
-            if $0 {
-                self.view.showLoader()
-            } else {
-                self.view.hideLoader()
-            }
-        }
-        .store(in: &subscribers)
-        
+        subscribeForLoading(for: viewModel.utility.$isLoading)
         onPokemonViewModelsUpdated()
     }
 }
