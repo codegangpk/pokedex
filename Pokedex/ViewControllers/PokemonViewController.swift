@@ -39,6 +39,7 @@ extension PokemonViewController {
         tableView.register(PokemonStatsTableViewCell.nib, forCellReuseIdentifier: PokemonStatsTableViewCell.reuseIdentifier)
         
         subscribeToPokemon()
+        subscribeForLoading(for: viewModel.utility.$isLoading)
         setupDataSource()
     }
 }
