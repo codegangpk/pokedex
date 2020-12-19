@@ -8,15 +8,11 @@
 import UIKit
 
 private enum Section {
-    case pokemons
+    case pokemon
 }
 
 private enum Row: Equatable {
-    case photo
-    case name
-    case height
-    case weight
-    case map
+    case pokemon(PokemonStatsTableViewCellViewModel)
 }
 
 class PokemonViewController: BaseViewController {
@@ -40,8 +36,9 @@ extension PokemonViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.register(ImageTableViewCell.nib, forCellReuseIdentifier: ImageTableViewCell.reuseIdentifier)
+        tableView.register(PokemonStatsTableViewCell.nib, forCellReuseIdentifier: PokemonStatsTableViewCell.reuseIdentifier)
         
+        subscribeToPokemon()
         setupDataSource()
     }
 }
@@ -59,26 +56,45 @@ extension PokemonViewController: UITableViewDataSource {
         let row = dataSource.item(for: indexPath)
         
         switch row {
-        case .photo:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ImageTableViewCell.reuseIdentifier, for: indexPath) as! ImageTableViewCell
+        case .pokemon(let viewModel):
+            let cell = tableView.dequeueReusableCell(withIdentifier: PokemonStatsTableViewCell.reuseIdentifier, for: indexPath) as! PokemonStatsTableViewCell
+            cell.bind(viewModel)
             return cell
-        default:
-            return UITableViewCell()
         }
     }
 }
 
 extension PokemonViewController {
-    private func setupDataSource() {
-        dataSource.removeAllSections()
-        
-        dataSource.appendSection(.pokemons, with: [])
+    private func subscribeToPokemon() {
+        viewModel.$pokemon
+            .sink { [weak self] pokemon in
+                guard let self = self else { return }
+                
+                print("pokemon: \(pokemon)")
+                self.setupDataSource(pokemon: pokemon)
+
+                guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
+                
+                self.tableView.reloadSections([section], with: .automatic)
+            }
+            .store(in: &subscribers)
     }
 }
 
 extension PokemonViewController {
-    static func push(in viewController: UIViewController, id: Int) {
-        let viewModel = PokemonViewViewModel(id: id)
+    private func setupDataSource(pokemon: Pokemon? = nil) {
+        dataSource.removeAllSections()
+        
+        self.dataSource.appendSection(.pokemon, with: [])
+        if let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: viewModel.pokemonSearchResult, pokemon: pokemon) {
+            dataSource.append([.pokemon(viewModel)], in: .pokemon)
+        }
+    }
+}
+
+extension PokemonViewController {
+    static func push(in viewController: UIViewController, pokemonSearchResult: PokemonSearchResult) {
+        let viewModel = PokemonViewViewModel(pokemonSearchResult: pokemonSearchResult)
         let pokemonViewController = PokemonViewController(viewModel: viewModel)
         viewController.navigationController?.pushViewController(pokemonViewController, animated: true)
     }

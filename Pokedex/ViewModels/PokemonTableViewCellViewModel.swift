@@ -9,7 +9,7 @@ import Foundation
 
 struct PokemonTableViewCellViewModel: Equatable {
     private let keyword: String
-    private let pokemonSearchResult: PokemonSearchResult
+    let pokemonSearchResult: PokemonSearchResult
     
     init(keyword: String, pokemonSearchResult: PokemonSearchResult) {
         self.keyword = keyword
