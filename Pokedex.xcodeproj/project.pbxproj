@@ -33,6 +33,14 @@
 		696D7171258D497D00503328 /* PokemonSearchResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D7170258D497D00503328 /* PokemonSearchResultsModel.swift */; };
 		696D7174258D49A800503328 /* PokemonSearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D7173258D49A800503328 /* PokemonSearchResults.swift */; };
 		696D7178258DC5E300503328 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D7177258DC5E300503328 /* SearchBar.swift */; };
+		696D717C258DD43000503328 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D717A258DD43000503328 /* LoaderView.swift */; };
+		696D7180258DD44600503328 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D717E258DD44600503328 /* BaseView.swift */; };
+		696D7183258DD47800503328 /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D7182258DD47800503328 /* RuntimeError.swift */; };
+		696D7186258DD49400503328 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D7185258DD49400503328 /* GlobalFunctions.swift */; };
+		696D7189258DD52B00503328 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D7188258DD52B00503328 /* UIApplication+Extension.swift */; };
+		696D718C258DD63800503328 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D718B258DD63800503328 /* UIView+Extension.swift */; };
+		696D718E258DD6E000503328 /* LoaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696D717B258DD43000503328 /* LoaderView.xib */; };
+		696D7190258DD6E500503328 /* BaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696D717F258DD44600503328 /* BaseView.xib */; };
 		6973A6EF258D3DF60037FBA3 /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6973A6EE258D3DF60037FBA3 /* NetworkLogger.swift */; };
 		6973A6F2258D3E130037FBA3 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6973A6F1258D3E130037FBA3 /* Data+Extension.swift */; };
 		69D1BE3B258D215A00C80C98 /* EndPointable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1BE3A258D215A00C80C98 /* EndPointable.swift */; };
@@ -70,6 +78,14 @@
 		696D7170258D497D00503328 /* PokemonSearchResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSearchResultsModel.swift; sourceTree = "<group>"; };
 		696D7173258D49A800503328 /* PokemonSearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSearchResults.swift; sourceTree = "<group>"; };
 		696D7177258DC5E300503328 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		696D717A258DD43000503328 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		696D717B258DD43000503328 /* LoaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoaderView.xib; sourceTree = "<group>"; };
+		696D717E258DD44600503328 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		696D717F258DD44600503328 /* BaseView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseView.xib; sourceTree = "<group>"; };
+		696D7182258DD47800503328 /* RuntimeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
+		696D7185258DD49400503328 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		696D7188258DD52B00503328 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		696D718B258DD63800503328 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6973A6EE258D3DF60037FBA3 /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		6973A6F1258D3E130037FBA3 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		69D1BE3A258D215A00C80C98 /* EndPointable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointable.swift; sourceTree = "<group>"; };
@@ -117,6 +133,10 @@
 			children = (
 				69D7D330258D1AC5000857D5 /* DataSource.swift */,
 				690FA722258D19D0000424BD /* Bindable.swift */,
+				696D7182258DD47800503328 /* RuntimeError.swift */,
+				696D7185258DD49400503328 /* GlobalFunctions.swift */,
+				696D7188258DD52B00503328 /* UIApplication+Extension.swift */,
+				696D718B258DD63800503328 /* UIView+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -225,9 +245,21 @@
 			isa = PBXGroup;
 			children = (
 				69D7D32C258D1A78000857D5 /* TableViewCells */,
+				696D7192258DD8F100503328 /* BaseView */,
 				696D7177258DC5E300503328 /* SearchBar.swift */,
+				696D717A258DD43000503328 /* LoaderView.swift */,
+				696D717B258DD43000503328 /* LoaderView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		696D7192258DD8F100503328 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				696D717E258DD44600503328 /* BaseView.swift */,
+				696D717F258DD44600503328 /* BaseView.xib */,
+			);
+			path = BaseView;
 			sourceTree = "<group>";
 		};
 		6973A6F6258D43180037FBA3 /* Base */ = {
@@ -333,8 +365,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696D718E258DD6E000503328 /* LoaderView.xib in Resources */,
 				69433A0F258D43A000E3BBB4 /* BaseTableViewCell.xib in Resources */,
 				69517602258CDAB000B52A6C /* LaunchScreen.storyboard in Resources */,
+				696D7190258DD6E500503328 /* BaseView.xib in Resources */,
 				69433A0A258D438200E3BBB4 /* PokemonTableViewCell.xib in Resources */,
 				695175FF258CDAB000B52A6C /* Preview Assets.xcassets in Resources */,
 				690FA71F258D1995000424BD /* SearchViewController.xib in Resources */,
@@ -349,6 +383,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696D718C258DD63800503328 /* UIView+Extension.swift in Sources */,
+				696D7180258DD44600503328 /* BaseView.swift in Sources */,
 				6973A6EF258D3DF60037FBA3 /* NetworkLogger.swift in Sources */,
 				695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */,
 				693F9727258CE8FC00105167 /* SFSymbols.swift in Sources */,
@@ -357,15 +393,19 @@
 				69D7D334258D1C10000857D5 /* BaseViewController.swift in Sources */,
 				690920CA258D364300A5742E /* PokemonSearchResultModel.swift in Sources */,
 				690920D3258D36B800A5742E /* PokemonSearchResult.swift in Sources */,
+				696D7183258DD47800503328 /* RuntimeError.swift in Sources */,
 				690FA71E258D1995000424BD /* SearchViewController.swift in Sources */,
 				6973A6F2258D3E130037FBA3 /* Data+Extension.swift in Sources */,
 				695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */,
 				69517613258CE40500B52A6C /* SearchViewViewModel.swift in Sources */,
 				696D716E258D47D800503328 /* NSObject+Extension.swift in Sources */,
 				69D1BE3E258D238A00C80C98 /* Fileable.swift in Sources */,
+				696D7186258DD49400503328 /* GlobalFunctions.swift in Sources */,
 				696D7178258DC5E300503328 /* SearchBar.swift in Sources */,
+				696D7189258DD52B00503328 /* UIApplication+Extension.swift in Sources */,
 				69531B7F258CE6680002B627 /* BaseViewViewModelUtility.swift in Sources */,
 				69418A07258D3588005C070D /* PokemonRepository.swift in Sources */,
+				696D717C258DD43000503328 /* LoaderView.swift in Sources */,
 				69418A00258D2EDB005C070D /* NetworkError.swift in Sources */,
 				69433A09258D438200E3BBB4 /* PokemonTableViewCell.swift in Sources */,
 				69433A0D258D439C00E3BBB4 /* BaseTableViewCell.swift in Sources */,

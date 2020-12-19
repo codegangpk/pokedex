@@ -28,18 +28,31 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
                 self.pokemonViewModels.removeAll()
             })
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .handleEvents(receiveOutput: { _ in
+                self.utility.isLoading = true
+                print("self.utility.isLoading : \(self.utility.isLoading)")
+            })
             .map { _ in pokemonRepository.getPokemonList() }
             .switchToLatest()
-            .sink { [weak self] (error) in
-                guard let self = self else { return }
-                
-                self.utility.isLoading = false
+            .sink { _ in
             } receiveValue: { [weak self] pokemonSearchResults in
                 guard let self = self else { return }
                 
-                self.pokemonViewModels = pokemonSearchResults.pokemons?.compactMap {
-                    PokemonTableViewCellViewModel(pokemonSearchResult: $0)
-                } ?? []
+                self.utility.isLoading = false
+                
+                self.pokemonViewModels = pokemonSearchResults.pokemons?
+                    .filter { [weak self] in
+                        guard let self = self,
+                              self.searchText.isEmpty == false
+                        else { return true }
+                        
+                        return $0.names.contains {
+                            $0.contains(self.searchText)
+                        }
+                    }
+                    .compactMap {
+                        PokemonTableViewCellViewModel(pokemonSearchResult: $0)
+                    } ?? []
             }
             .store(in: &subscribers)
     }

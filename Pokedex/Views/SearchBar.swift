@@ -11,10 +11,12 @@ class SearchBar: UISearchBar {
     typealias DidTextChanged = (UISearchBar, String) -> Void
     private let didTextChanged: DidTextChanged
     
-    init(didTextChanged: @escaping DidTextChanged) {
+    init(placeholder: String? = nil, didTextChanged: @escaping DidTextChanged) {
         self.didTextChanged = didTextChanged
         
         super.init(frame: .zero)
+        
+        self.placeholder = placeholder
         
         delegate = self
     }

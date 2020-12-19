@@ -37,7 +37,7 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.titleView = SearchBar() { [weak self] _, text in
+        navigationItem.titleView = SearchBar(placeholder: "포켓몬 이름을 입력해주세요.") { [weak self] _, text in
             guard let self = self else { return }
             
             self.viewModel.searchText = text
@@ -46,6 +46,17 @@ extension SearchViewController {
         tableView.register(PokemonTableViewCell.nib, forCellReuseIdentifier: PokemonTableViewCell.reuseIdentifier)
         
         setupDataSource()
+        
+        viewModel.utility.$isLoading.sink { [weak self] in
+            guard let self = self else { return }
+            
+            if $0 {
+                self.view.showLoader()
+            } else {
+                self.view.hideLoader()
+            }
+        }
+        .store(in: &subscribers)
         
         onPokemonViewModelsUpdated()
     }
