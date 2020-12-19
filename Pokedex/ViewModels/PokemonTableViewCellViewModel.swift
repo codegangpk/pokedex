@@ -18,6 +18,12 @@ struct PokemonTableViewCellViewModel: Equatable {
 }
 
 extension PokemonTableViewCellViewModel {
+    var id: Int {
+        pokemonSearchResult.id
+    }
+}
+
+extension PokemonTableViewCellViewModel {
     var numberText: String? {
         return "\(pokemonSearchResult.id)"
     }

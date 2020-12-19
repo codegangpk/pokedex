@@ -23,7 +23,17 @@ class PokemonViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var dataSource = DataSource<Section, Row>()
-    private var viewModel = SearchViewViewModel()
+    private var viewModel: PokemonViewViewModel
+    
+    init(viewModel: PokemonViewViewModel) {
+        self.viewModel = viewModel
+
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension PokemonViewController {
@@ -67,8 +77,9 @@ extension PokemonViewController {
 }
 
 extension PokemonViewController {
-    static func push(in viewController: UIViewController) {
-        let pokemonViewController = PokemonViewController()
+    static func push(in viewController: UIViewController, id: Int) {
+        let viewModel = PokemonViewViewModel(id: id)
+        let pokemonViewController = PokemonViewController(viewModel: viewModel)
         viewController.navigationController?.pushViewController(pokemonViewController, animated: true)
     }
 }
