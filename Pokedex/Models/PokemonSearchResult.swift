@@ -21,3 +21,11 @@ struct PokemonSearchResult: Equatable {
         self.names = names
     }
 }
+
+extension PokemonSearchResult {
+    func name(for keyword: String) -> String? {
+        names.first {
+            $0.lowercased().contains(keyword.lowercased())
+        }
+    }
+}

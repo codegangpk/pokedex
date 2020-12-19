@@ -26,12 +26,9 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
                 guard let self = self else { return }
                 print("value: \(value)")
                 self.pokemonViewModels.removeAll()
+                self.utility.isLoading = true
             })
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .handleEvents(receiveOutput: { _ in
-                self.utility.isLoading = true
-                print("self.utility.isLoading : \(self.utility.isLoading)")
-            })
             .map { _ in pokemonRepository.getPokemonList() }
             .switchToLatest()
             .sink { _ in
@@ -46,12 +43,10 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
                               self.searchText.isEmpty == false
                         else { return true }
                         
-                        return $0.names.contains {
-                            $0.contains(self.searchText)
-                        }
+                        return $0.name(for: self.searchText) != nil
                     }
                     .compactMap {
-                        PokemonTableViewCellViewModel(pokemonSearchResult: $0)
+                        PokemonTableViewCellViewModel(keyword: self.searchText, pokemonSearchResult: $0)
                     } ?? []
             }
             .store(in: &subscribers)

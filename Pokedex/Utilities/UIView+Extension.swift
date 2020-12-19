@@ -9,6 +9,8 @@ import UIKit
 
 extension UIView {
     func showLoader() {
+        guard subviews.contains(where: { $0 is LoaderView }) == false else { return }
+        
         let loaderView = LoaderView()
         addSubview(loaderView)
         loaderView.constraintAllEdges(to: self)
