@@ -9,11 +9,11 @@ import Foundation
 
 class MapViewViewModel {
     let pokemonName: String
-    let locations: [Location]
+    let locations: [LocationAnnotation]
 
     init(pokemonName: String, locations: [Location]) {
         self.pokemonName = pokemonName
-        self.locations = locations
+        self.locations = locations.compactMap { LocationAnnotation(location: $0) }
     }
 }
 

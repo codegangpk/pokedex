@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: BaseViewController {
+    @IBOutlet weak var mapView: MKMapView!
+    
     private let viewModel: MapViewViewModel
 
     init(viewModel: MapViewViewModel) {
@@ -26,8 +29,8 @@ class MapViewController: BaseViewController {
 extension MapViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        mapView.addAnnotations(viewModel.locations)
     }
 }
 
