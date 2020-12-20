@@ -8,7 +8,7 @@
 import UIKit
 
 enum SFSymbols: String {
-    case xmarkCircleFill = "xmark.circle.fill"
+    case close = "xmark"
         
     var image: UIImage? {
         UIImage(systemName: self.rawValue)

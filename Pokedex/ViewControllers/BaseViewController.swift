@@ -36,3 +36,15 @@ extension BaseViewController {
         .store(in: &subscribers)
     }
 }
+
+extension BaseViewController {
+    func configureCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: SFSymbols.close.image, style: .plain, target: self, action: #selector(onClose(_:)))
+    }
+}
+
+extension BaseViewController {
+    @objc private func onClose(_ sender: UIBarButtonItem) {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+}

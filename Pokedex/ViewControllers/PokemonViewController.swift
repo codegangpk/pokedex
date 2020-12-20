@@ -95,7 +95,11 @@ extension PokemonViewController {
 
 extension PokemonViewController {
     @objc private func onMapTapped(_ sender: UIBarButtonItem) {
+        guard let pokemon = viewModel.pokemon,
+              let locations = viewModel.locations
+        else { return }
         
+        MapViewController.present(in: self, pokemon: pokemon, locations: locations)
     }
 }
 
