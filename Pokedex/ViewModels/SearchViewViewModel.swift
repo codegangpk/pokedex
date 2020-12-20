@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class SearchViewViewModel: BaseViewViewModel, ObservableObject {
+    @Published var pokemonSearchResults: [PokemonSearchResult] = []
     @Published var searchText: String = ""
     @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
     
@@ -20,34 +21,45 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
         self.pokemonRepository = pokemonRepository
         
         super.init()
-        
-        $searchText
-            .handleEvents(receiveOutput: { [weak self] value in
-                guard let self = self else { return }
-                print("value: \(value)")
-                self.pokemonViewModels.removeAll()
-                self.utility.isLoading = true
-            })
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .map { _ in pokemonRepository.getPokemonList() }
-            .switchToLatest()
+
+        getPokemonList()
+        subscribeForSearchText()
+    }
+}
+
+extension SearchViewViewModel {
+    private func getPokemonList() {
+        self.utility.isLoading = true
+        pokemonRepository.getPokemonList()
             .sink { _ in
+                self.utility.isLoading = false
             } receiveValue: { [weak self] pokemonSearchResults in
                 guard let self = self else { return }
                 
-                self.utility.isLoading = false
-                
-                self.pokemonViewModels = pokemonSearchResults.pokemons?
-                    .filter { [weak self] in
-                        guard let self = self,
-                              self.searchText.isEmpty == false
-                        else { return true }
+                self.pokemonSearchResults = pokemonSearchResults.pokemons ?? []
+            }
+            .store(in: &subscribers)
+    }
+    
+    private func subscribeForSearchText() {
+        $searchText
+            .combineLatest($pokemonSearchResults)
+            .compactMap { searchText, pokemonSearchResults in
+                return pokemonSearchResults
+                    .filter {
+                        guard searchText.isEmpty == false else { return true }
                         
-                        return $0.name(for: self.searchText) != nil
+                        return $0.name(for: searchText) != nil
                     }
                     .compactMap {
-                        PokemonTableViewCellViewModel(keyword: self.searchText, pokemonSearchResult: $0)
-                    } ?? []
+                        PokemonTableViewCellViewModel(keyword: searchText, pokemonSearchResult: $0)
+                    }
+            }
+            .sink { viewModels in
+                if self.pokemonViewModels != viewModels {
+                    self.pokemonViewModels = viewModels
+                }
+                print("viewModels: \(viewModels)")
             }
             .store(in: &subscribers)
     }

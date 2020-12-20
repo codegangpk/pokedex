@@ -100,9 +100,7 @@ extension SearchViewController {
                 let rows: [Row] = value.compactMap { .pokemon($0) }
                 self.dataSource.append(rows, in: .pokemons)
                 
-                guard let section = self.dataSource.sectionIndex(of: .pokemons) else { return }
-                
-                self.tableView.reloadSections([section], with: .automatic)
+                self.tableView.reloadData()
             }
             .store(in: &subscribers)
     }
