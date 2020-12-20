@@ -14,6 +14,8 @@ class MapViewController: BaseViewController {
         self.viewModel = viewModel
         
         super.init()
+        
+        title = viewModel.titleText
     }
     
     required init?(coder: NSCoder) {
@@ -30,8 +32,8 @@ extension MapViewController {
 }
 
 extension MapViewController {
-    static func present(in viewController: UIViewController, pokemon: Pokemon, locations: [Location]) {
-        let viewModel = MapViewViewModel(pokemon: pokemon, locations: locations)
+    static func present(in viewController: UIViewController, pokemonName: String, locations: [Location]) {
+        let viewModel = MapViewViewModel(pokemonName: pokemonName, locations: locations)
         let mapViewController = MapViewController(viewModel: viewModel)
         mapViewController.configureCloseButton()
         let mapNavigationController = UINavigationController(rootViewController: mapViewController)

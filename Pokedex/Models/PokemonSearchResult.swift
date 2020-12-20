@@ -9,23 +9,32 @@ import Foundation
 
 struct PokemonSearchResult: Equatable {
     let id: Int
-    let names: [String]
+    let koreanName: String
+    let englishName: String
     
     init?(pokemonSearchResultModel: PokemonSearchResultModel?) {
         guard let pokemonSearchResultModel = pokemonSearchResultModel,
               let id = pokemonSearchResultModel.id,
-              let names = pokemonSearchResultModel.names, names.isEmpty == false
+              let koreanName = pokemonSearchResultModel.names?.first, koreanName.isEmpty == false,
+              let englishName = pokemonSearchResultModel.names?.last, englishName.isEmpty == false
         else { return nil }
         
         self.id = id
-        self.names = names
+        self.koreanName = koreanName
+        self.englishName = englishName
     }
 }
 
 extension PokemonSearchResult {
     func name(for keyword: String) -> String? {
-        names.first {
-            $0.lowercased().contains(keyword.lowercased())
+        
+        switch keyword {
+        case keyword where koreanName.lowercased().contains(keyword.lowercased()):
+            return koreanName
+        case keyword where englishName.lowercased().contains(keyword.lowercased()):
+            return englishName
+        default:
+            return nil
         }
     }
 }

@@ -8,11 +8,17 @@
 import Foundation
 
 class MapViewViewModel {
-    let pokemon: Pokemon
+    let pokemonName: String
     let locations: [Location]
 
-    init(pokemon: Pokemon, locations: [Location]) {
-        self.pokemon = pokemon
+    init(pokemonName: String, locations: [Location]) {
+        self.pokemonName = pokemonName
         self.locations = locations
+    }
+}
+
+extension MapViewViewModel {
+    var titleText: String {
+        return [pokemonName, "서식지"].joined(separator: " ")
     }
 }
