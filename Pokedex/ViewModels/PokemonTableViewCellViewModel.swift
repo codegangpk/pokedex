@@ -25,7 +25,7 @@ extension PokemonTableViewCellViewModel {
 
 extension PokemonTableViewCellViewModel {
     var numberText: String? {
-        return "\(pokemonSearchResult.id)"
+        return "#\(pokemonSearchResult.id)"
     }
     
     var nameText: String? {
