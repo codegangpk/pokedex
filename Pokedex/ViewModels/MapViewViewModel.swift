@@ -5,7 +5,7 @@
 //  Created by Paul Kim on 2020/12/20.
 //
 
-import Foundation
+import UIKit
 
 class MapViewViewModel {
     let pokemonName: String
@@ -20,5 +20,15 @@ class MapViewViewModel {
 extension MapViewViewModel {
     var titleText: String {
         return [pokemonName, "서식지"].joined(separator: " ")
+    }
+    
+    func edgePadding(with safeAreaInsets: UIEdgeInsets) -> UIEdgeInsets {
+        let edgeInset: CGFloat = 50
+        return UIEdgeInsets(
+            top: safeAreaInsets.top + edgeInset,
+            left: safeAreaInsets.left + edgeInset,
+            bottom: safeAreaInsets.bottom + edgeInset,
+            right: safeAreaInsets.right + edgeInset
+        )
     }
 }

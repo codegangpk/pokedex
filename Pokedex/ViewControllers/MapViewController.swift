@@ -31,6 +31,17 @@ extension MapViewController {
         super.viewDidLoad()
         
         mapView.addAnnotations(viewModel.locations)
+        mapView.showAnnotations(viewModel.locations, animated: true)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        self.mapView.setVisibleMapRect(
+            self.mapView.visibleMapRect,
+            edgePadding: viewModel.edgePadding(with: view.safeAreaInsets),
+            animated: false
+        )
     }
 }
 
