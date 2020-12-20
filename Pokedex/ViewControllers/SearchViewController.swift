@@ -80,6 +80,7 @@ extension SearchViewController: UITableViewDelegate {
         let row = dataSource.item(for: indexPath)
         switch row {
         case .pokemon(let viewModel):
+            navigationItem.titleView?.endEditing(true)
             PokemonViewController.push(in: self, pokemonSearchResult: viewModel.pokemonSearchResult)
         }
     }
