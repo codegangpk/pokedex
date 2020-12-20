@@ -47,17 +47,7 @@ extension SearchViewController {
         
         setupDataSource()
         
-        viewModel.utility.$isLoading.sink { [weak self] in
-            guard let self = self else { return }
-            
-            if $0 {
-                self.view.showLoader()
-            } else {
-                self.view.hideLoader()
-            }
-        }
-        .store(in: &subscribers)
-        
+        subscribeForLoading(for: viewModel.utility.$isLoading)
         onPokemonViewModelsUpdated()
     }
 }
@@ -90,7 +80,7 @@ extension SearchViewController: UITableViewDelegate {
         let row = dataSource.item(for: indexPath)
         switch row {
         case .pokemon(let viewModel):
-            break
+            PokemonViewController.push(in: self, pokemonSearchResult: viewModel.pokemonSearchResult)
         }
     }
     
@@ -102,7 +92,9 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController {
     private func onPokemonViewModelsUpdated() {
         viewModel.$pokemonViewModels
-            .sink { value in
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                
                 self.setupDataSource()
                 
                 let rows: [Row] = value.compactMap { .pokemon($0) }

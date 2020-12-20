@@ -2,7 +2,7 @@
 //  PokemonRepository.swift
 //  Pokedex
 //
-//  Created by Paul Kim on 2020/12/19.
+//  Created by Paul Kim on 2020/12/20.
 //
 
 import Foundation
@@ -10,7 +10,7 @@ import Combine
 
 struct PokemonRepository {
     private let session: API
-    private let mockingBaseURL = URL(string: "https://demo0928971.mockable.io")!
+    private let baseURL = URL(string: "https://pokeapi.co/api/v2")!
     
     init(session: API = API()) {
         self.session = session
@@ -18,16 +18,16 @@ struct PokemonRepository {
 }
 
 extension PokemonRepository {
-    func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError> {
+    func getPokemon(id: Int) -> AnyPublisher<Pokemon, NetworkError> {
         return session.call(
             EndPoint(
-                baseURL: mockingBaseURL,
+                baseURL: baseURL,
                 httpMethod: .get,
-                path: "pokemon_name"
-            ),
-            for: PokemonSearchResultsModel.self
+                path: "pokemon/\(id)"
+            )
+            , for: PokemonModel.self
         )
-        .compactMap { PokemonSearchResults(pokemonSearchResultsModel: $0) }
+        .compactMap { Pokemon(pokemonModel: $0) }
         .eraseToAnyPublisher()
     }
 }

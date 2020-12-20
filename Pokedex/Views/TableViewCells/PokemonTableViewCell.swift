@@ -8,7 +8,6 @@
 import UIKit
 
 class PokemonTableViewCell: BaseTableViewCell {
-    
     @IBOutlet private var numberLabel: UILabel!
     @IBOutlet private var nameLabel: UILabel!
     

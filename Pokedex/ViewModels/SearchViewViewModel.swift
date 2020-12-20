@@ -12,11 +12,11 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
     @Published var searchText: String = ""
     @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
     
-    private let pokemonRepository: PokemonRepository
+    private let pokemonRepository: PokemonMockingRepository
     
     var subscribers = Set<AnyCancellable>()
     
-    init(pokemonRepository: PokemonRepository = PokemonRepository()) {
+    init(pokemonRepository: PokemonMockingRepository = PokemonMockingRepository()) {
         self.pokemonRepository = pokemonRepository
         
         super.init()

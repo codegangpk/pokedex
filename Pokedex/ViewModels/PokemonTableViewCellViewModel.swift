@@ -9,7 +9,7 @@ import Foundation
 
 struct PokemonTableViewCellViewModel: Equatable {
     private let keyword: String
-    private let pokemonSearchResult: PokemonSearchResult
+    let pokemonSearchResult: PokemonSearchResult
     
     init(keyword: String, pokemonSearchResult: PokemonSearchResult) {
         self.keyword = keyword
@@ -18,8 +18,14 @@ struct PokemonTableViewCellViewModel: Equatable {
 }
 
 extension PokemonTableViewCellViewModel {
+    var id: Int {
+        pokemonSearchResult.id
+    }
+}
+
+extension PokemonTableViewCellViewModel {
     var numberText: String? {
-        return "\(pokemonSearchResult.id)"
+        return "#\(pokemonSearchResult.id)"
     }
     
     var nameText: String? {
