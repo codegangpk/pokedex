@@ -27,11 +27,11 @@ extension PokemonStatsTableViewCellViewModel {
     }
     
     var koreaNameText: String? {
-        return pokemonSearchResult.names.first
+        return pokemonSearchResult.koreanName
     }
     
     var englishNameText: String? {
-        return pokemonSearchResult.names.last
+        return pokemonSearchResult.englishName
     }
     
     var heightText: String? {

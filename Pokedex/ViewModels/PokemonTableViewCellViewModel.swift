@@ -32,6 +32,6 @@ extension PokemonTableViewCellViewModel {
         return keyword.isEmpty == false ?
             pokemonSearchResult.name(for: keyword)
             :
-            pokemonSearchResult.names.first
+            pokemonSearchResult.koreanName
     }
 }

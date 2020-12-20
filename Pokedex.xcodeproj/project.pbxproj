@@ -60,6 +60,10 @@
 		6975BDCD258F3A1800551D70 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975BDCC258F3A1800551D70 /* LocationModel.swift */; };
 		6975BDD0258F3A4500551D70 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975BDCF258F3A4500551D70 /* Locations.swift */; };
 		6975BDD3258F3AE400551D70 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975BDD2258F3AE400551D70 /* Location.swift */; };
+		6975BDD8258F45DC00551D70 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975BDD6258F45DC00551D70 /* MapViewController.swift */; };
+		6975BDD9258F45DC00551D70 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6975BDD7258F45DC00551D70 /* MapViewController.xib */; };
+		6975BDDC258F473900551D70 /* MapViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975BDDB258F473900551D70 /* MapViewViewModel.swift */; };
+		6975BDE0258F4D7E00551D70 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975BDDF258F4D7E00551D70 /* LocationAnnotation.swift */; };
 		69D1BE3B258D215A00C80C98 /* EndPointable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1BE3A258D215A00C80C98 /* EndPointable.swift */; };
 		69D1BE3E258D238A00C80C98 /* Fileable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1BE3D258D238A00C80C98 /* Fileable.swift */; };
 		69D7D331258D1AC5000857D5 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D7D330258D1AC5000857D5 /* DataSource.swift */; };
@@ -121,6 +125,10 @@
 		6975BDCC258F3A1800551D70 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		6975BDCF258F3A4500551D70 /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		6975BDD2258F3AE400551D70 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		6975BDD6258F45DC00551D70 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		6975BDD7258F45DC00551D70 /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		6975BDDB258F473900551D70 /* MapViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewModel.swift; sourceTree = "<group>"; };
+		6975BDDF258F4D7E00551D70 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
 		69D1BE3A258D215A00C80C98 /* EndPointable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointable.swift; sourceTree = "<group>"; };
 		69D1BE3D258D238A00C80C98 /* Fileable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fileable.swift; sourceTree = "<group>"; };
 		69D7D32D258D1A94000857D5 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +161,7 @@
 				6943D2F9258E51DA0046B98D /* Sprites.swift */,
 				6975BDCF258F3A4500551D70 /* Locations.swift */,
 				6975BDD2258F3AE400551D70 /* Location.swift */,
+				6975BDDF258F4D7E00551D70 /* LocationAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -253,6 +262,8 @@
 				690FA71D258D1995000424BD /* SearchViewController.xib */,
 				691EE56F258DE28400886F52 /* PokemonViewController.swift */,
 				691EE570258DE28400886F52 /* PokemonViewController.xib */,
+				6975BDD6258F45DC00551D70 /* MapViewController.swift */,
+				6975BDD7258F45DC00551D70 /* MapViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -276,6 +287,7 @@
 				696D716A258D452800503328 /* PokemonTableViewCellViewModel.swift */,
 				691EE581258E35C000886F52 /* PokemonViewViewModel.swift */,
 				694D88E2258E58A300CB4C28 /* PokemonStatsTableViewCellViewModel.swift */,
+				6975BDDB258F473900551D70 /* MapViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -426,6 +438,7 @@
 				69433A0A258D438200E3BBB4 /* PokemonTableViewCell.xib in Resources */,
 				695175FF258CDAB000B52A6C /* Preview Assets.xcassets in Resources */,
 				690FA71F258D1995000424BD /* SearchViewController.xib in Resources */,
+				6975BDD9258F45DC00551D70 /* MapViewController.xib in Resources */,
 				695175FC258CDAB000B52A6C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +469,7 @@
 				690920CA258D364300A5742E /* PokemonSearchResultModel.swift in Sources */,
 				690920D3258D36B800A5742E /* PokemonSearchResult.swift in Sources */,
 				696D7183258DD47800503328 /* RuntimeError.swift in Sources */,
+				6975BDE0258F4D7E00551D70 /* LocationAnnotation.swift in Sources */,
 				6943D2FA258E51DA0046B98D /* Sprites.swift in Sources */,
 				690FA71E258D1995000424BD /* SearchViewController.swift in Sources */,
 				6973A6F2258D3E130037FBA3 /* Data+Extension.swift in Sources */,
@@ -468,6 +482,7 @@
 				696D7189258DD52B00503328 /* UIApplication+Extension.swift in Sources */,
 				69531B7F258CE6680002B627 /* BaseViewViewModelUtility.swift in Sources */,
 				69418A07258D3588005C070D /* PokemonMockingRepository.swift in Sources */,
+				6975BDD8258F45DC00551D70 /* MapViewController.swift in Sources */,
 				6943D2F7258E51C80046B98D /* Pokemon.swift in Sources */,
 				691EE571258DE28400886F52 /* PokemonViewController.swift in Sources */,
 				696D717C258DD43000503328 /* LoaderView.swift in Sources */,
@@ -480,6 +495,7 @@
 				69531B75258CE5D00002B627 /* BaseViewViewModel.swift in Sources */,
 				69D7D331258D1AC5000857D5 /* DataSource.swift in Sources */,
 				69D7D337258D1D57000857D5 /* API.swift in Sources */,
+				6975BDDC258F473900551D70 /* MapViewViewModel.swift in Sources */,
 				690FA723258D19D0000424BD /* Bindable.swift in Sources */,
 				691EE582258E35C000886F52 /* PokemonViewViewModel.swift in Sources */,
 				696D7171258D497D00503328 /* PokemonSearchResultsModel.swift in Sources */,
