@@ -33,17 +33,7 @@ extension MapViewController {
         mapView.register(LocationAnnotationView.self, forAnnotationViewWithReuseIdentifier: LocationAnnotationView.reuseIdentifier)
         
         mapView.addAnnotations(viewModel.locations)
-        mapView.showAnnotations(viewModel.locations, animated: true)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        self.mapView.setVisibleMapRect(
-            self.mapView.visibleMapRect,
-            edgePadding: viewModel.edgePadding(with: view.safeAreaInsets),
-            animated: false
-        )
+        mapView.showRegion(for: viewModel.locations)
     }
 }
 
