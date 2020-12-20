@@ -30,4 +30,18 @@ extension PokemonMockingRepository {
         .compactMap { PokemonSearchResults(pokemonSearchResultsModel: $0) }
         .eraseToAnyPublisher()
     }
+    
+    func getLocations() -> AnyPublisher<Locations, NetworkError> {
+        return session.call(
+            EndPoint(
+                baseURL: baseURL,
+                httpMethod: .get,
+                path: "pokemon_locations"
+            )
+            ,
+            for: LocationsModel.self
+        )
+        .compactMap { Locations(locationsModel: $0) }
+        .eraseToAnyPublisher()
+    }
 }

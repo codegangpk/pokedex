@@ -39,6 +39,7 @@ extension PokemonViewController {
         tableView.register(PokemonStatsTableViewCell.nib, forCellReuseIdentifier: PokemonStatsTableViewCell.reuseIdentifier)
         
         subscribeToPokemon()
+        subscribeToLocations()
         subscribeForLoading(for: viewModel.utility.$isLoading)
         setupDataSource()
     }
@@ -78,6 +79,23 @@ extension PokemonViewController {
                 self.tableView.reloadSections([section], with: .automatic)
             }
             .store(in: &subscribers)
+    }
+    
+    private func subscribeToLocations() {
+        viewModel.$locations
+            .sink { [weak self] locations in
+                guard let self = self else { return }
+                guard locations?.isEmpty == false else { return }
+                
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "지도 보기", style: .plain, target: self, action: #selector(self.onMapTapped(_:)))
+            }
+            .store(in: &subscribers)
+    }
+}
+
+extension PokemonViewController {
+    @objc private func onMapTapped(_ sender: UIBarButtonItem) {
+        
     }
 }
 
