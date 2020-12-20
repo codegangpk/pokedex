@@ -193,6 +193,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		6914EE97258F846800A0DAE1 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				69D7D333258D1C10000857D5 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		693F972E258CE9E600105167 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,7 +265,7 @@
 		6951760A258CDF9F00B52A6C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				69D7D333258D1C10000857D5 /* BaseViewController.swift */,
+				6914EE97258F846800A0DAE1 /* Base */,
 				690FA71C258D1995000424BD /* SearchViewController.swift */,
 				690FA71D258D1995000424BD /* SearchViewController.xib */,
 				691EE56F258DE28400886F52 /* PokemonViewController.swift */,

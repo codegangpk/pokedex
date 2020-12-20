@@ -22,7 +22,6 @@ struct API {
 extension API {
     @discardableResult
     func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model, NetworkError> {
-        
         Future { promise in
             session
                 .request(
