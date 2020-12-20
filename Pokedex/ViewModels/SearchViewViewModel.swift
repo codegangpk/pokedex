@@ -8,14 +8,12 @@
 import Foundation
 import Combine
 
-class SearchViewViewModel: BaseViewViewModel, ObservableObject {
+class SearchViewViewModel: BaseViewViewModel {
     @Published var pokemonSearchResults: [PokemonSearchResult] = []
     @Published var searchText: String = ""
     @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
     
     private let pokemonRepository: PokemonMockingRepository
-    
-    var subscribers = Set<AnyCancellable>()
     
     init(pokemonRepository: PokemonMockingRepository = PokemonMockingRepository()) {
         self.pokemonRepository = pokemonRepository
@@ -29,10 +27,10 @@ class SearchViewViewModel: BaseViewViewModel, ObservableObject {
 
 extension SearchViewViewModel {
     private func getPokemonList() {
-        self.utility.isLoading = true
+        self.isLoading = true
         pokemonRepository.getPokemonList()
             .sink { _ in
-                self.utility.isLoading = false
+                self.isLoading = false
             } receiveValue: { [weak self] pokemonSearchResults in
                 guard let self = self else { return }
                 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PokemonViewViewModel: BaseViewViewModel, ObservableObject {
+class PokemonViewViewModel: BaseViewViewModel {
     let pokemonSearchResult: PokemonSearchResult
     private let pokemonRepository: PokemonRepository
     private let pokemonMockingRepository: PokemonMockingRepository
@@ -32,23 +32,23 @@ class PokemonViewViewModel: BaseViewViewModel, ObservableObject {
 
 extension PokemonViewViewModel {
     private func getPokemon(id: Int) {
-        utility.isLoading = true
+        isLoading = true
         pokemonRepository
             .getPokemon(id: id)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 
-                self.utility.isLoading = false
+                self.isLoading = false
             } receiveValue: { [weak self] pokemon in
                 guard let self = self else { return }
                 
                 self.pokemon = pokemon
             }
-            .store(in: &utility.subscribers)
+            .store(in: &subscribers)
     }
     
     private func getLocations(id: Int) {
-        utility.isLoading = true
+        isLoading = true
         pokemonMockingRepository
             .getLocations()
             .sink { _ in
@@ -58,6 +58,6 @@ extension PokemonViewViewModel {
                 self.locations = locations.pokemons?
                     .filter { $0.id == id } ?? []
             }
-            .store(in: &utility.subscribers)
+            .store(in: &subscribers)
     }
 }

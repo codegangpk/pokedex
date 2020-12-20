@@ -40,7 +40,7 @@ extension PokemonViewController {
         
         subscribeToPokemon()
         subscribeToLocations()
-        subscribeForLoading(for: viewModel.utility.$isLoading)
+        subscribeForLoading(for: viewModel.$isLoading)
         setupDataSource()
     }
 }

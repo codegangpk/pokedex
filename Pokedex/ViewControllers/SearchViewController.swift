@@ -47,7 +47,7 @@ extension SearchViewController {
         
         setupDataSource()
         
-        subscribeForLoading(for: viewModel.utility.$isLoading)
+        subscribeForLoading(for: viewModel.$isLoading)
         onPokemonViewModelsUpdated()
     }
 }

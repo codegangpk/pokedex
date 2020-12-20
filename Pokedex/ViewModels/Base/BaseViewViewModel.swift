@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 class BaseViewViewModel {
-    let utility = BaseViewViewModelUtility()
+    @Published var isLoading: Bool = false
+    
+    var subscribers = Set<AnyCancellable>()
 }
