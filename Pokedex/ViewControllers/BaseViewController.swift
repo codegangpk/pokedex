@@ -24,7 +24,9 @@ class BaseViewController: UIViewController {
 
 extension BaseViewController {
     func subscribeForLoading(for isLoading: Published<Bool>.Publisher) {
-        isLoading.sink {
+        isLoading.sink { [weak self] in
+            guard let self = self else { return }
+            
             if $0 {
                 self.view.showLoader()
             } else {

@@ -92,7 +92,9 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController {
     private func onPokemonViewModelsUpdated() {
         viewModel.$pokemonViewModels
-            .sink { value in
+            .sink { [weak self] value in
+                guard let self = self else { return }
+                
                 self.setupDataSource()
                 
                 let rows: [Row] = value.compactMap { .pokemon($0) }
