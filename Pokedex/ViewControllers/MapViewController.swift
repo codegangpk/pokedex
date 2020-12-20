@@ -30,6 +30,8 @@ extension MapViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.register(LocationAnnotationView.self, forAnnotationViewWithReuseIdentifier: LocationAnnotationView.reuseIdentifier)
+        
         mapView.addAnnotations(viewModel.locations)
         mapView.showAnnotations(viewModel.locations, animated: true)
     }
@@ -42,6 +44,13 @@ extension MapViewController {
             edgePadding: viewModel.edgePadding(with: view.safeAreaInsets),
             animated: false
         )
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: LocationAnnotationView.reuseIdentifier, for: annotation) as! LocationAnnotationView
+        return annotationView
     }
 }
 
