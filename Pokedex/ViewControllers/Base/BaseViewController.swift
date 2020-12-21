@@ -10,7 +10,6 @@ import Combine
 
 //WARNING: do not configure or customize!! use only for setting lightweight style
 class BaseViewController: UIViewController {
-    private let viewModel = BaseViewViewModel()
     var subscribers = Set<AnyCancellable>()
     
     init() {
