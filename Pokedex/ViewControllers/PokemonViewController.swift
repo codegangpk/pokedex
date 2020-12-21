@@ -38,10 +38,16 @@ extension PokemonViewController {
 
         tableView.register(PokemonStatsTableViewCell.nib, forCellReuseIdentifier: PokemonStatsTableViewCell.reuseIdentifier)
         
+        setupDataSource()
+        
         subscribeToPokemon()
         subscribeToLocations()
-        subscribeForLoading(for: viewModel.$isLoading)
-        setupDataSource()
+        subscribeForLoading(for: viewModel)
+        subscribeForNetworkError(for: viewModel) { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.showNetworkErrorAlert()
+        }
     }
 }
 

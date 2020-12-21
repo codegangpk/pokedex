@@ -22,8 +22,14 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController {
-    func subscribeForLoading(for isLoading: Published<Bool>.Publisher) {
-        isLoading.sink { [weak self] in
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
+
+extension BaseViewController {
+    func subscribeForLoading(for viewModel: BaseViewViewModel) {
+        viewModel.$isLoading.sink { [weak self] in
             guard let self = self else { return }
             
             if $0 {
@@ -33,6 +39,19 @@ extension BaseViewController {
             }
         }
         .store(in: &subscribers)
+    }
+    
+    func subscribeForNetworkError(for viewModel: BaseViewViewModel, errorHandler: @escaping (NetworkError) -> Void) {
+        viewModel.$completion
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    errorHandler(error)
+                default:
+                    break
+                }
+            }
+            .store(in: &subscribers)
     }
 }
 

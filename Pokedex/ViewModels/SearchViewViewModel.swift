@@ -26,18 +26,17 @@ class SearchViewViewModel: BaseViewViewModel {
 }
 
 extension SearchViewViewModel {
-    private func getPokemonList() {
-        self.isLoading = true
+    func getPokemonList() {
+        handleNetworkBegin()
         pokemonRepository.getPokemonList()
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.isLoading = false
-            } receiveValue: { [weak self] pokemonSearchResults in
-                guard let self = self else { return }
-                
-                self.pokemonSearchResults = pokemonSearchResults.pokemons ?? []
-            }
+            .sink(
+                receiveCompletion: handleNetworkCompletion(completion:),
+                receiveValue: { [weak self] pokemonSearchResults in
+                    guard let self = self else { return }
+                    
+                    self.pokemonSearchResults = pokemonSearchResults.pokemons ?? []
+                }
+            )
             .store(in: &subscribers)
     }
     

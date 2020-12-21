@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class PokemonViewViewModel: BaseViewViewModel {
     let pokemonSearchResult: PokemonSearchResult
@@ -32,18 +33,17 @@ class PokemonViewViewModel: BaseViewViewModel {
 
 extension PokemonViewViewModel {
     private func getPokemon(id: Int) {
-        isLoading = true
+        handleNetworkBegin()
         pokemonRepository
             .getPokemon(id: id)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.isLoading = false
-            } receiveValue: { [weak self] pokemon in
-                guard let self = self else { return }
-                
-                self.pokemonViewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
-            }
+            .sink(
+                receiveCompletion: handleNetworkCompletion(completion:),
+                receiveValue: { [weak self] pokemon in
+                    guard let self = self else { return }
+                    
+                    self.pokemonViewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
+                }
+            )
             .store(in: &subscribers)
     }
     

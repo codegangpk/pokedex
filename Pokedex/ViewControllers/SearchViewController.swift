@@ -46,7 +46,12 @@ extension SearchViewController {
         
         setupDataSource()
         
-        subscribeForLoading(for: viewModel.$isLoading)
+        subscribeForLoading(for: viewModel)
+        subscribeForNetworkError(for: viewModel) { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.showNetworkErrorAlert()
+        }
         subscribeForPokemonViewModels()
     }
 }
