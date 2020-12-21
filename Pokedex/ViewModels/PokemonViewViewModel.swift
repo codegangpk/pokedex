@@ -48,7 +48,6 @@ extension PokemonViewViewModel {
     }
     
     private func getLocations(id: Int) {
-        isLoading = true
         pokemonMockingRepository
             .getLocations()
             .sink { _ in
