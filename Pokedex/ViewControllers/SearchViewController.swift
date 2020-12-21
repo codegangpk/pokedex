@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 private enum Section {
     case pokemons
@@ -48,7 +47,7 @@ extension SearchViewController {
         setupDataSource()
         
         subscribeForLoading(for: viewModel.$isLoading)
-        onPokemonViewModelsUpdated()
+        subscribeForPokemonViewModels()
     }
 }
 
@@ -91,12 +90,10 @@ extension SearchViewController: UITableViewDelegate {
 }
 
 extension SearchViewController {
-    private func onPokemonViewModelsUpdated() {
+    private func subscribeForPokemonViewModels() {
         viewModel.$pokemonViewModels
             .sink { [weak self] value in
                 guard let self = self else { return }
-                
-                self.setupDataSource()
                 
                 let rows: [Row] = value.compactMap { .pokemon($0) }
                 self.dataSource.append(rows, in: .pokemons)
