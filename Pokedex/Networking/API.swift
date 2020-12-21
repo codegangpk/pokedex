@@ -31,10 +31,10 @@ extension API {
                     encoding: URLEncoding(boolEncoding: .literal),
                     headers: endPoint.afHttpHeaders
                 )
-                .validate()
                 .onURLRequestCreation(perform: {
                     NetworkLogger.log(.outGoing($0))
                 })
+                .validate()
                 .responseData { (response) in
                     NetworkLogger.log(.inComing(response.data, response.response, response.error))
                     if let error = response.error {
