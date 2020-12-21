@@ -68,11 +68,13 @@ extension PokemonViewController: UITableViewDataSource {
 
 extension PokemonViewController {
     private func subscribeToPokemon() {
-        viewModel.$pokemon
-            .sink { [weak self] pokemon in
-                guard let self = self else { return }
+        viewModel.$pokemonViewModel
+            .sink { [weak self] viewModel in
+                guard let self = self,
+                      let viewModel = viewModel
+                else { return }
                 
-                self.setupDataSource(pokemon: pokemon)
+                self.dataSource.append([.pokemon(viewModel)], in: .pokemon)
 
                 guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
                 
@@ -106,9 +108,6 @@ extension PokemonViewController {
         dataSource.removeAllSections()
         
         self.dataSource.appendSection(.pokemon, with: [])
-        if let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: viewModel.pokemonSearchResult, pokemon: pokemon) {
-            dataSource.append([.pokemon(viewModel)], in: .pokemon)
-        }
     }
 }
 

@@ -12,7 +12,7 @@ class PokemonViewViewModel: BaseViewViewModel {
     private let pokemonRepository: PokemonRepository
     private let pokemonMockingRepository: PokemonMockingRepository
     
-    @Published var pokemon: Pokemon?
+    @Published var pokemonViewModel: PokemonStatsTableViewCellViewModel?
     @Published var locations: [Location]?
     
     init(pokemonSearchResult: PokemonSearchResult,
@@ -42,7 +42,7 @@ extension PokemonViewViewModel {
             } receiveValue: { [weak self] pokemon in
                 guard let self = self else { return }
                 
-                self.pokemon = pokemon
+                self.pokemonViewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
             }
             .store(in: &subscribers)
     }
