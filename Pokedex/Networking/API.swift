@@ -15,8 +15,6 @@ struct API {
         configuration.timeoutIntervalForRequest = 10.0
         return Session(configuration: configuration)
     }()
-    
-    let encoding = URLEncoding(boolEncoding: .literal)
 }
 
 extension API {
