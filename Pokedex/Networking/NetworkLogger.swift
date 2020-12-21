@@ -19,8 +19,8 @@ struct NetworkLogger {
             let components = URLComponents(string: urlString)
             
             let method = request.httpMethod ?? ""
-            let path = components?.path ?? ""
-            let query = components?.query ?? ""
+            let path = components?.path
+            let query = components?.query
             let host = components?.host ?? ""
             
             var requestLog = "\n---------- OUT ---------->\n\n"
@@ -28,7 +28,9 @@ struct NetworkLogger {
                 requestLog += "UUID: \(id)\n"
             }
             requestLog += "\(urlString)\n\n"
-            requestLog += "\(method) \(path)?\(query)\n"
+            
+            let fullPath = [path, query].compactMap { $0 }.joined(separator: "?")
+            requestLog += "\(method) \(fullPath)\n"
             requestLog += "Host: \(host)\n\n"
             
             requestLog += "<Headers>\n"
@@ -59,7 +61,8 @@ struct NetworkLogger {
                 responseLog += "\n\(urlString)\n\n"
             }
             if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                responseLog += "HTTP \(statusCode) \(path)?\(query)\n"
+                let fullPath = [path, query].compactMap { $0 }.joined(separator: "?")
+                responseLog += "HTTP \(statusCode) \(fullPath)\n"
             }
             if let host = components?.host {
                 responseLog += "Host: \(host)\n\n"
