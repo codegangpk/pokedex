@@ -53,11 +53,12 @@ extension SearchViewViewModel {
                         PokemonTableViewCellViewModel(keyword: searchText, pokemonSearchResult: $0)
                     }
             }
-            .sink { viewModels in
-                if self.pokemonViewModels != viewModels {
-                    self.pokemonViewModels = viewModels
-                }
-                print("viewModels: \(viewModels)")
+            .sink { [weak self] viewModels in
+                guard let self = self,
+                      self.pokemonViewModels != viewModels
+                else { return }
+                
+                self.pokemonViewModels = viewModels
             }
             .store(in: &subscribers)
     }
