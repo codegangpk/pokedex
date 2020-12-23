@@ -8,47 +8,55 @@
 import Foundation
 import Combine
 
-class SearchViewViewModel: BaseViewViewModel, ObservableObject {
-    @Published var searchText: String = ""
-    @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
-    
+final class SearchViewViewModel: BaseViewViewModel {
     private let pokemonRepository: PokemonMockingRepository
     
-    var subscribers = Set<AnyCancellable>()
+    @Published var pokemonSearchResults: [PokemonSearchResult] = []
+    @Published var searchText: String = ""
+    @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
     
     init(pokemonRepository: PokemonMockingRepository = PokemonMockingRepository()) {
         self.pokemonRepository = pokemonRepository
         
         super.init()
-        
+
+        getPokemonList()
+        subscribeForSearchText()
+    }
+}
+
+extension SearchViewViewModel {
+    func getPokemonList() {
+        beginNetworkRequest()
+        pokemonRepository
+            .getPokemonList()
+            .sink(
+                receiveCompletion: completeNetworkRequest(completion:),
+                receiveValue: { [weak self] pokemonSearchResults in
+                    guard let self = self else { return }
+                    
+                    self.pokemonSearchResults = pokemonSearchResults.pokemons ?? []
+                }
+            )
+            .store(in: &subscribers)
+    }
+    
+    private func subscribeForSearchText() {
         $searchText
-            .handleEvents(receiveOutput: { [weak self] value in
-                guard let self = self else { return }
-                print("value: \(value)")
-                self.pokemonViewModels.removeAll()
-                self.utility.isLoading = true
-            })
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .map { _ in pokemonRepository.getPokemonList() }
-            .switchToLatest()
-            .sink { _ in
-            } receiveValue: { [weak self] pokemonSearchResults in
-                guard let self = self else { return }
-                
-                self.utility.isLoading = false
-                
-                self.pokemonViewModels = pokemonSearchResults.pokemons?
-                    .filter { [weak self] in
-                        guard let self = self,
-                              self.searchText.isEmpty == false
-                        else { return true }
+            .combineLatest($pokemonSearchResults)
+            .compactMap { searchText, pokemonSearchResults in
+                return pokemonSearchResults
+                    .filter {
+                        guard searchText.isEmpty == false else { return true }
                         
-                        return $0.name(for: self.searchText) != nil
+                        return $0.name(for: searchText) != nil
                     }
                     .compactMap {
-                        PokemonTableViewCellViewModel(keyword: self.searchText, pokemonSearchResult: $0)
-                    } ?? []
+                        PokemonTableViewCellViewModel(keyword: searchText, pokemonSearchResult: $0)
+                    }
             }
+            .filter { $0 != self.pokemonViewModels }
+            .assign(to: \.pokemonViewModels, on: self)
             .store(in: &subscribers)
     }
 }

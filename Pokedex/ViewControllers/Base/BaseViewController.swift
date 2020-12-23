@@ -10,7 +10,6 @@ import Combine
 
 //WARNING: do not configure or customize!! use only for setting lightweight style
 class BaseViewController: UIViewController {
-    private let viewModel = BaseViewViewModel()
     var subscribers = Set<AnyCancellable>()
     
     init() {
@@ -23,8 +22,27 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController {
-    func subscribeForLoading(for isLoading: Published<Bool>.Publisher) {
-        isLoading.sink { [weak self] in
+    final override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureView()
+        addSubscribers()
+    }
+}
+
+extension BaseViewController {
+    @objc func configureView() {
+        
+    }
+    
+    @objc func addSubscribers() {
+        
+    }
+}
+
+extension BaseViewController {
+    func subscribeForLoading(for viewModel: BaseViewViewModel) {
+        viewModel.$isLoading.sink { [weak self] in
             guard let self = self else { return }
             
             if $0 {
@@ -34,6 +52,16 @@ extension BaseViewController {
             }
         }
         .store(in: &subscribers)
+    }
+    
+    func subscribeForNetworkError(for viewModel: BaseViewViewModel, errorHandler: @escaping (NetworkError) -> Void) {
+        viewModel.$networkError
+            .sink { networkError in
+                guard let networkError = networkError else { return }
+                
+                errorHandler(networkError)
+            }
+            .store(in: &subscribers)
     }
 }
 

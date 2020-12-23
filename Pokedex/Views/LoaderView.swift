@@ -7,8 +7,8 @@
 
 import UIKit
 
-class LoaderView: BaseView {
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+final class LoaderView: BaseView {
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     
     static let shared: LoaderView = LoaderView(frame: .zero)
     

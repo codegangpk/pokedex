@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 private enum Section {
     case pokemons
@@ -16,8 +15,8 @@ private enum Row: Equatable {
     case pokemon(PokemonTableViewCellViewModel)
 }
 
-class SearchViewController: BaseViewController {
-    @IBOutlet weak var tableView: UITableView!
+final class SearchViewController: BaseViewController {
+    @IBOutlet private weak var tableView: UITableView!
     
     private var dataSource = DataSource<Section, Row>()
     private var viewModel = SearchViewViewModel()
@@ -34,8 +33,8 @@ class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func configureView() {
+        super.configureView()
         
         navigationItem.titleView = SearchBar(placeholder: "포켓몬 이름을 입력해주세요.") { [weak self] _, text in
             guard let self = self else { return }
@@ -44,11 +43,21 @@ extension SearchViewController {
         }
         
         tableView.register(PokemonTableViewCell.nib, forCellReuseIdentifier: PokemonTableViewCell.reuseIdentifier)
+        tableView.addRefreshControl()
         
         setupDataSource()
+    }
+    
+    override func addSubscribers() {
+        super.addSubscribers()
         
-        subscribeForLoading(for: viewModel.utility.$isLoading)
-        onPokemonViewModelsUpdated()
+        subscribeForLoading(for: viewModel)
+        subscribeForNetworkError(for: viewModel) { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.showNetworkErrorAlert()
+        }
+        subscribeForPokemonViewModels()
     }
 }
 
@@ -80,6 +89,7 @@ extension SearchViewController: UITableViewDelegate {
         let row = dataSource.item(for: indexPath)
         switch row {
         case .pokemon(let viewModel):
+            navigationItem.titleView?.endEditing(true)
             PokemonViewController.push(in: self, pokemonSearchResult: viewModel.pokemonSearchResult)
         }
     }
@@ -87,22 +97,32 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNonzeroMagnitude
     }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard scrollView == tableView else { return }
+        
+        tableView.afterRefreshControlIsFinished { [weak self] in
+            guard let self = self else { return }
+            
+            self.viewModel.getPokemonList()
+        }
+    }
 }
 
 extension SearchViewController {
-    private func onPokemonViewModelsUpdated() {
+    private func subscribeForPokemonViewModels() {
         viewModel.$pokemonViewModels
-            .sink { [weak self] value in
+            .sink { [weak self] viewModels in
                 guard let self = self else { return }
                 
-                self.setupDataSource()
+                self.dataSource.removeAllItems(in: .pokemons)
                 
-                let rows: [Row] = value.compactMap { .pokemon($0) }
-                self.dataSource.append(rows, in: .pokemons)
+                if viewModels.isEmpty == false {
+                    let rows: [Row] = viewModels.compactMap { .pokemon($0) }
+                    self.dataSource.append(rows, in: .pokemons)
+                }
                 
-                guard let section = self.dataSource.sectionIndex(of: .pokemons) else { return }
-                
-                self.tableView.reloadSections([section], with: .automatic)
+                self.tableView.reloadData()
             }
             .store(in: &subscribers)
     }

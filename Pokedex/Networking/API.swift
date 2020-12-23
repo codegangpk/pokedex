@@ -15,14 +15,11 @@ struct API {
         configuration.timeoutIntervalForRequest = 10.0
         return Session(configuration: configuration)
     }()
-    
-    let encoding = URLEncoding(boolEncoding: .literal)
 }
 
 extension API {
     @discardableResult
-    func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model, NetworkError> {
-        
+    func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model?, NetworkError> {
         Future { promise in
             session
                 .request(
@@ -32,10 +29,10 @@ extension API {
                     encoding: URLEncoding(boolEncoding: .literal),
                     headers: endPoint.afHttpHeaders
                 )
-                .validate()
                 .onURLRequestCreation(perform: {
                     NetworkLogger.log(.outGoing($0))
                 })
+                .validate()
                 .responseData { (response) in
                     NetworkLogger.log(.inComing(response.data, response.response, response.error))
                     if let error = response.error {
@@ -43,7 +40,10 @@ extension API {
                         promise(.failure(networkError))
                     }
                     
-                    guard let data = response.data else { return }
+                    guard let data = response.data else {
+                        promise(.success(nil))
+                        return
+                    }
                     
                     do {
                         let responseObject = try JSONDecoder().decode(model, from: data)

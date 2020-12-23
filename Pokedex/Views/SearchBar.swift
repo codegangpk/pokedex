@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchBar: UISearchBar {
+final class SearchBar: UISearchBar {
     typealias DidTextChanged = (UISearchBar, String) -> Void
     private let didTextChanged: DidTextChanged
     
@@ -27,11 +27,24 @@ class SearchBar: UISearchBar {
 }
 
 extension SearchBar: UISearchBarDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        setShowsCancelButton(true, animated: true)
+        return true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        setShowsCancelButton(false, animated: true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         didTextChanged(self, searchText)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
 }

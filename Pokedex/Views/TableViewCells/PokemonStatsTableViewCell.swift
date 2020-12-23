@@ -7,17 +7,17 @@
 
 import UIKit
 
-class PokemonStatsTableViewCell: BaseTableViewCell {
-    @IBOutlet weak var pokemonImageView: UIImageView!
+final class PokemonStatsTableViewCell: BaseTableViewCell {
+    @IBOutlet private weak var pokemonImageView: UIImageView!
     
-    @IBOutlet weak var koreanNameLabel: UILabel!
-    @IBOutlet weak var englishNameLabel: UILabel!
+    @IBOutlet private weak var koreanNameLabel: UILabel!
+    @IBOutlet private weak var englishNameLabel: UILabel!
     
-    @IBOutlet weak var heightLabel: UILabel!
-    @IBOutlet weak var heightValueLabel: UILabel!
+    @IBOutlet private weak var heightLabel: UILabel!
+    @IBOutlet private weak var heightValueLabel: UILabel!
     
-    @IBOutlet weak var weightLabel: UILabel!
-    @IBOutlet weak var weightValueLabel: UILabel!
+    @IBOutlet private weak var weightLabel: UILabel!
+    @IBOutlet private weak var weightValueLabel: UILabel!
     
     override func commonInit() {
         super.commonInit()

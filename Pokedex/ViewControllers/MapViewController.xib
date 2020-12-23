@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gAl-wY-3Km">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="kco-Pm-Smu"/>
                     </connections>
@@ -31,7 +31,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="gAl-wY-3Km" secondAttribute="bottom" id="0lx-tP-hTr"/>
                 <constraint firstItem="gAl-wY-3Km" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ATp-ey-jkV"/>
-                <constraint firstItem="gAl-wY-3Km" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CMQ-cM-H0R"/>
+                <constraint firstItem="gAl-wY-3Km" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="CMQ-cM-H0R"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gAl-wY-3Km" secondAttribute="trailing" id="HoL-Kl-WMy"/>
             </constraints>
             <point key="canvasLocation" x="-157" y="-30"/>

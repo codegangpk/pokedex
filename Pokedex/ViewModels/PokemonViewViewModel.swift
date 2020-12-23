@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Combine
 
-class PokemonViewViewModel: BaseViewViewModel, ObservableObject {
-    let pokemonSearchResult: PokemonSearchResult
+final class PokemonViewViewModel: BaseViewViewModel {
+    private let pokemonSearchResult: PokemonSearchResult
     private let pokemonRepository: PokemonRepository
     private let pokemonMockingRepository: PokemonMockingRepository
     
-    @Published var pokemon: Pokemon?
+    @Published var pokemonViewModel: PokemonStatsTableViewCellViewModel?
     @Published var locations: [Location]?
     
     init(pokemonSearchResult: PokemonSearchResult,
@@ -25,30 +26,42 @@ class PokemonViewViewModel: BaseViewViewModel, ObservableObject {
 
         super.init()
         
-        getPokemon(id: pokemonSearchResult.id)
-        getLocations(id: pokemonSearchResult.id)
+        getPokemon(id: pokemonId)
+        getLocations(id: pokemonId)
     }
 }
 
 extension PokemonViewViewModel {
-    private func getPokemon(id: Int) {
-        utility.isLoading = true
-        pokemonRepository
-            .getPokemon(id: id)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                
-                self.utility.isLoading = false
-            } receiveValue: { [weak self] pokemon in
-                guard let self = self else { return }
-                
-                self.pokemon = pokemon
-            }
-            .store(in: &utility.subscribers)
+    var pokemonId: Int {
+        return pokemonSearchResult.id
     }
     
-    private func getLocations(id: Int) {
-        utility.isLoading = true
+    var pokemonName: String {
+        return pokemonSearchResult.koreanName
+    }
+}
+
+extension PokemonViewViewModel {
+    func getPokemon(id: Int) {
+        beginNetworkRequest()
+        pokemonRepository
+            .getPokemon(id: id)
+            .sink(
+                receiveCompletion: completeNetworkRequest(completion:),
+                receiveValue: { [weak self] pokemon in
+                    guard let self = self else { return }
+
+                    let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
+
+                    guard self.pokemonViewModel != viewModel else { return }
+                    
+                    self.pokemonViewModel = viewModel
+                }
+            )
+            .store(in: &subscribers)
+    }
+    
+    func getLocations(id: Int) {
         pokemonMockingRepository
             .getLocations()
             .sink { _ in
@@ -58,6 +71,6 @@ extension PokemonViewViewModel {
                 self.locations = locations.pokemons?
                     .filter { $0.id == id } ?? []
             }
-            .store(in: &utility.subscribers)
+            .store(in: &subscribers)
     }
 }
