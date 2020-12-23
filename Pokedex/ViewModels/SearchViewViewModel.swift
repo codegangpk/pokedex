@@ -26,7 +26,7 @@ final class SearchViewViewModel: BaseViewViewModel {
 }
 
 extension SearchViewViewModel {
-    private func getPokemonList() {
+    func getPokemonList() {
         beginNetworkRequest()
         pokemonRepository
             .getPokemonList()

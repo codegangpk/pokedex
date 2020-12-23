@@ -43,6 +43,7 @@ extension SearchViewController {
         }
         
         tableView.register(PokemonTableViewCell.nib, forCellReuseIdentifier: PokemonTableViewCell.reuseIdentifier)
+        tableView.addRefreshControl()
         
         setupDataSource()
     }
@@ -95,6 +96,16 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return .leastNonzeroMagnitude
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard scrollView == tableView else { return }
+        
+        tableView.afterRefreshControlIsFinished { [weak self] in
+            guard let self = self else { return }
+            
+            self.viewModel.getPokemonList()
+        }
     }
 }
 
