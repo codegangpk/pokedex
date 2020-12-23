@@ -22,8 +22,21 @@ class BaseViewController: UIViewController {
 }
 
 extension BaseViewController {
-    override func viewDidLoad() {
+    final override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureView()
+        addSubscribers()
+    }
+}
+
+extension BaseViewController {
+    @objc func configureView() {
+        
+    }
+    
+    @objc func addSubscribers() {
+        
     }
 }
 

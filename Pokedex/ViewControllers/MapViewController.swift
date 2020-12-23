@@ -27,8 +27,8 @@ class MapViewController: BaseViewController {
 }
 
 extension MapViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func configureView() {
+        super.configureView()
         
         mapView.register(LocationAnnotationView.self, forAnnotationViewWithReuseIdentifier: LocationAnnotationView.reuseIdentifier)
         

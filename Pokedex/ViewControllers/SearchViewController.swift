@@ -33,8 +33,8 @@ class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func configureView() {
+        super.configureView()
         
         navigationItem.titleView = SearchBar(placeholder: "포켓몬 이름을 입력해주세요.") { [weak self] _, text in
             guard let self = self else { return }
@@ -45,6 +45,10 @@ extension SearchViewController {
         tableView.register(PokemonTableViewCell.nib, forCellReuseIdentifier: PokemonTableViewCell.reuseIdentifier)
         
         setupDataSource()
+    }
+    
+    override func addSubscribers() {
+        super.addSubscribers()
         
         subscribeForLoading(for: viewModel)
         subscribeForNetworkError(for: viewModel) { [weak self] _ in
@@ -99,6 +103,15 @@ extension SearchViewController {
         viewModel.$pokemonViewModels
             .sink { [weak self] value in
                 guard let self = self else { return }
+                
+                defer {
+                    self.tableView.reloadData()
+                }
+                
+                guard value.isEmpty == false else {
+                    self.setupDataSource()
+                    return
+                }
                 
                 let rows: [Row] = value.compactMap { .pokemon($0) }
                 self.dataSource.append(rows, in: .pokemons)

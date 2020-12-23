@@ -33,12 +33,16 @@ class PokemonViewController: BaseViewController {
 }
 
 extension PokemonViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func configureView() {
+        super.configureView()
+        
         tableView.register(PokemonStatsTableViewCell.nib, forCellReuseIdentifier: PokemonStatsTableViewCell.reuseIdentifier)
         
         setupDataSource()
+    }
+    
+    override func addSubscribers() {
+        super.addSubscribers()
         
         subscribeToPokemon()
         subscribeToLocations()
