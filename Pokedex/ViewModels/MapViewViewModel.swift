@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MapViewViewModel {
+final class MapViewViewModel {
     let pokemonName: String
     let locations: [LocationAnnotation]
 

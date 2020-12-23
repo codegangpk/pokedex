@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class LocationAnnotation: NSObject {
+final class LocationAnnotation: NSObject {
     let latitude: Double
     let longitude: Double
     

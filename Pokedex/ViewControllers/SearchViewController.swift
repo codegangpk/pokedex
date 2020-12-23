@@ -15,8 +15,8 @@ private enum Row: Equatable {
     case pokemon(PokemonTableViewCellViewModel)
 }
 
-class SearchViewController: BaseViewController {
-    @IBOutlet weak var tableView: UITableView!
+final class SearchViewController: BaseViewController {
+    @IBOutlet private weak var tableView: UITableView!
     
     private var dataSource = DataSource<Section, Row>()
     private var viewModel = SearchViewViewModel()

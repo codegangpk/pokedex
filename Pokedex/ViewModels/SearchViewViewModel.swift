@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class SearchViewViewModel: BaseViewViewModel {
+final class SearchViewViewModel: BaseViewViewModel {
     private let pokemonRepository: PokemonMockingRepository
     
     @Published var pokemonSearchResults: [PokemonSearchResult] = []
@@ -26,7 +26,7 @@ class SearchViewViewModel: BaseViewViewModel {
 }
 
 extension SearchViewViewModel {
-    func getPokemonList() {
+    private func getPokemonList() {
         beginNetworkRequest()
         pokemonRepository
             .getPokemonList()

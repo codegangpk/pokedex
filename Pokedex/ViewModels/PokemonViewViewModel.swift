@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class PokemonViewViewModel: BaseViewViewModel {
+final class PokemonViewViewModel: BaseViewViewModel {
     let pokemonSearchResult: PokemonSearchResult
     private let pokemonRepository: PokemonRepository
     private let pokemonMockingRepository: PokemonMockingRepository

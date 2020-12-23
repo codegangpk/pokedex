@@ -8,8 +8,8 @@
 import UIKit
 import MapKit
 
-class MapViewController: BaseViewController {
-    @IBOutlet weak var mapView: MKMapView!
+final class MapViewController: BaseViewController {
+    @IBOutlet private weak var mapView: MKMapView!
     
     private let viewModel: MapViewViewModel
 

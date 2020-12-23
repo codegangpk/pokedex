@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchBar: UISearchBar {
+final class SearchBar: UISearchBar {
     typealias DidTextChanged = (UISearchBar, String) -> Void
     private let didTextChanged: DidTextChanged
     

@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class LocationAnnotationView: MKMarkerAnnotationView {
+final class LocationAnnotationView: MKMarkerAnnotationView {
     override class var layerClass: AnyClass {
         return ResistantLayer.self
     }

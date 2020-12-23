@@ -9,7 +9,7 @@ import UIKit
 
 // workaround for flickering MKAnnotationView : override MKMapView's attempt to modify layer (zPosition)
 //https://stackoverflow.com/questions/46518725/mapkit-mkmapview-zposition-does-not-work-anymore-on-ios11
-class ResistantLayer: CALayer {
+final class ResistantLayer: CALayer {
     override var zPosition: CGFloat {
         get { return super.zPosition }
         set {}
