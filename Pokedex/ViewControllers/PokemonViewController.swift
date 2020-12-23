@@ -80,15 +80,20 @@ extension PokemonViewController {
     private func subscribeToPokemon() {
         viewModel.$pokemonViewModel
             .sink { [weak self] viewModel in
-                guard let self = self,
-                      let viewModel = viewModel
-                else { return }
+                guard let self = self else { return }
+                
+                defer {
+                    if let section = self.dataSource.sectionIndex(of: .pokemon) {
+                        self.tableView.reloadSections([section], with: .automatic)
+                    }
+                }
+                
+                guard let viewModel = viewModel else {
+                    self.setupDataSource()
+                    return
+                }
                 
                 self.dataSource.append([.pokemon(viewModel)], in: .pokemon)
-
-                guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
-                
-                self.tableView.reloadSections([section], with: .automatic)
             }
             .store(in: &subscribers)
     }
