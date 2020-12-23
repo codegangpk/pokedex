@@ -10,19 +10,16 @@ import Combine
 
 final class PokemonViewViewModel: BaseViewViewModel {
     private let pokemonSearchResult: PokemonSearchResult
-    private let pokemonRepository: PokemonRepository
-    private let pokemonMockingRepository: PokemonMockingRepository
+    private let pokemonUseCase: PokemonUseCase
     
     @Published var pokemonViewModel: PokemonStatsTableViewCellViewModel?
     @Published var locations: [Location]?
     
     init(pokemonSearchResult: PokemonSearchResult,
-         pokemonRepository: PokemonRepository = PokemonRepository(),
-         pokemonMockingRepository: PokemonMockingRepository = PokemonMockingRepository()
+         pokemonUseCase: PokemonUseCase = PokemonUseCase()
     ) {
         self.pokemonSearchResult = pokemonSearchResult
-        self.pokemonRepository = pokemonRepository
-        self.pokemonMockingRepository = pokemonMockingRepository
+        self.pokemonUseCase = pokemonUseCase
 
         super.init()
         
@@ -44,7 +41,7 @@ extension PokemonViewViewModel {
 extension PokemonViewViewModel {
     func getPokemon(id: Int) {
         beginNetworkRequest()
-        pokemonRepository
+        pokemonUseCase
             .getPokemon(id: id)
             .sink(
                 receiveCompletion: completeNetworkRequest(completion:),
@@ -62,7 +59,7 @@ extension PokemonViewViewModel {
     }
     
     func getLocations(id: Int) {
-        pokemonMockingRepository
+        pokemonUseCase
             .getLocations()
             .sink { _ in
             } receiveValue: { [weak self] locations in
