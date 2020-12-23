@@ -52,9 +52,10 @@ extension PokemonViewViewModel {
                     guard let self = self else { return }
 
                     let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
-                    if self.pokemonViewModel != viewModel {
-                        self.pokemonViewModel = viewModel
-                    }
+
+                    guard self.pokemonViewModel != viewModel else { return }
+                    
+                    self.pokemonViewModel = viewModel
                 }
             )
             .store(in: &subscribers)

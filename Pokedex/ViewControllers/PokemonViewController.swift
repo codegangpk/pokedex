@@ -96,18 +96,15 @@ extension PokemonViewController {
             .sink { [weak self] viewModel in
                 guard let self = self else { return }
                 
-                defer {
-                    if let section = self.dataSource.sectionIndex(of: .pokemon) {
-                        self.tableView.reloadSections([section], with: .automatic)
-                    }
-                }
-                
-                guard let viewModel = viewModel else {
+                if let viewModel = viewModel {
+                    self.dataSource.append([.pokemon(viewModel)], in: .pokemon)
+                } else {
                     self.dataSource.removeAllItems(in: .pokemon)
-                    return
                 }
                 
-                self.dataSource.append([.pokemon(viewModel)], in: .pokemon)
+                guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
+                    
+                self.tableView.reloadSections([section], with: .automatic)
             }
             .store(in: &subscribers)
     }

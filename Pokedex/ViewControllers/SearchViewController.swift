@@ -112,20 +112,17 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController {
     private func subscribeForPokemonViewModels() {
         viewModel.$pokemonViewModels
-            .sink { [weak self] value in
+            .sink { [weak self] viewModels in
                 guard let self = self else { return }
                 
-                defer {
-                    self.tableView.reloadData()
-                }
-                
-                guard value.isEmpty == false else {
+                if viewModels.isEmpty == false {
+                    let rows: [Row] = viewModels.compactMap { .pokemon($0) }
+                    self.dataSource.append(rows, in: .pokemons)
+                } else {
                     self.dataSource.removeAllItems(in: .pokemons)
-                    return
                 }
-                
-                let rows: [Row] = value.compactMap { .pokemon($0) }
-                self.dataSource.append(rows, in: .pokemons)
+
+                self.tableView.reloadData()
             }
             .store(in: &subscribers)
     }
