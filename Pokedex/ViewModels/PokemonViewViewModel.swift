@@ -33,11 +33,11 @@ class PokemonViewViewModel: BaseViewViewModel {
 
 extension PokemonViewViewModel {
     private func getPokemon(id: Int) {
-        handleNetworkBegin()
+        beginNetworkRequest()
         pokemonRepository
             .getPokemon(id: id)
             .sink(
-                receiveCompletion: handleNetworkCompletion(completion:),
+                receiveCompletion: completeNetworkRequest(completion:),
                 receiveValue: { [weak self] pokemon in
                     guard let self = self else { return }
                     

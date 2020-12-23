@@ -27,11 +27,11 @@ class SearchViewViewModel: BaseViewViewModel {
 
 extension SearchViewViewModel {
     func getPokemonList() {
-        handleNetworkBegin()
+        beginNetworkRequest()
         pokemonRepository
             .getPokemonList()
             .sink(
-                receiveCompletion: handleNetworkCompletion(completion:),
+                receiveCompletion: completeNetworkRequest(completion:),
                 receiveValue: { [weak self] pokemonSearchResults in
                     guard let self = self else { return }
                     

@@ -16,11 +16,11 @@ class BaseViewViewModel {
 }
 
 extension BaseViewViewModel {
-    func handleNetworkBegin() {
+    func beginNetworkRequest() {
         self.isLoading = true
     }
     
-    func handleNetworkCompletion(completion: Subscribers.Completion<NetworkError>) {
+    func completeNetworkRequest(completion: Subscribers.Completion<NetworkError>) {
         self.completion = completion
         self.isLoading = false
     }
