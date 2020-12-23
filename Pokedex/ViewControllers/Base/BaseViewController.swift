@@ -55,14 +55,11 @@ extension BaseViewController {
     }
     
     func subscribeForNetworkError(for viewModel: BaseViewViewModel, errorHandler: @escaping (NetworkError) -> Void) {
-        viewModel.$completion
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    errorHandler(error)
-                default:
-                    break
-                }
+        viewModel.$networkError
+            .sink { networkError in
+                guard let networkError = networkError else { return }
+                
+                errorHandler(networkError)
             }
             .store(in: &subscribers)
     }

@@ -10,7 +10,7 @@ import Combine
 
 class BaseViewViewModel {
     @Published var isLoading: Bool = false
-    @Published var completion: Subscribers.Completion<NetworkError>?
+    @Published var networkError: NetworkError?
     
     var subscribers = Set<AnyCancellable>()
 }
@@ -21,7 +21,9 @@ extension BaseViewViewModel {
     }
     
     func completeNetworkRequest(completion: Subscribers.Completion<NetworkError>) {
-        self.completion = completion
+        if case .failure(let networkError) = completion {
+            self.networkError = networkError
+        }
         self.isLoading = false
     }
 }
