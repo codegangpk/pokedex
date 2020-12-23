@@ -109,14 +109,12 @@ extension SearchViewController {
                 }
                 
                 guard value.isEmpty == false else {
-                    self.setupDataSource()
+                    self.dataSource.removeAllItems(in: .pokemons)
                     return
                 }
                 
                 let rows: [Row] = value.compactMap { .pokemon($0) }
                 self.dataSource.append(rows, in: .pokemons)
-                
-                self.tableView.reloadData()
             }
             .store(in: &subscribers)
     }
