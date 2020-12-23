@@ -50,8 +50,8 @@ struct NetworkLogger {
             let urlString = response?.url?.absoluteString
             let components = URLComponents(string: urlString ?? "")
             
-            let path = "\(components?.path ?? "")"
-            let query = "\(components?.query ?? "")"
+            let path = components?.path
+            let query = components?.query
             
             var responseLog = "\n<---------- IN ----------\n"
             if let id = id {
