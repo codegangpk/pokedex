@@ -382,9 +382,9 @@
 			children = (
 				69D1BE40258D23AA00C80C98 /* Protocols */,
 				69D7D336258D1D57000857D5 /* API.swift */,
-				6973A6EE258D3DF60037FBA3 /* NetworkLogger.swift */,
 				69418A02258D325E005C070D /* Endpoint.swift */,
 				694189FF258D2EDB005C070D /* NetworkError.swift */,
+				6973A6EE258D3DF60037FBA3 /* NetworkLogger.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
