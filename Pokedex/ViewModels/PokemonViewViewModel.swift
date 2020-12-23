@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class PokemonViewViewModel: BaseViewViewModel {
-    let pokemonSearchResult: PokemonSearchResult
+    private let pokemonSearchResult: PokemonSearchResult
     private let pokemonRepository: PokemonRepository
     private let pokemonMockingRepository: PokemonMockingRepository
     
@@ -26,13 +26,23 @@ final class PokemonViewViewModel: BaseViewViewModel {
 
         super.init()
         
-        getPokemon(id: pokemonSearchResult.id)
-        getLocations(id: pokemonSearchResult.id)
+        getPokemon(id: pokemonId)
+        getLocations(id: pokemonId)
     }
 }
 
 extension PokemonViewViewModel {
-    private func getPokemon(id: Int) {
+    var pokemonId: Int {
+        return pokemonSearchResult.id
+    }
+    
+    var pokemonName: String {
+        return pokemonSearchResult.koreanName
+    }
+}
+
+extension PokemonViewViewModel {
+    func getPokemon(id: Int) {
         beginNetworkRequest()
         pokemonRepository
             .getPokemon(id: id)
@@ -40,14 +50,17 @@ extension PokemonViewViewModel {
                 receiveCompletion: completeNetworkRequest(completion:),
                 receiveValue: { [weak self] pokemon in
                     guard let self = self else { return }
-                    
-                    self.pokemonViewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
+
+                    let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
+                    if self.pokemonViewModel != viewModel {
+                        self.pokemonViewModel = viewModel
+                    }
                 }
             )
             .store(in: &subscribers)
     }
     
-    private func getLocations(id: Int) {
+    func getLocations(id: Int) {
         pokemonMockingRepository
             .getLocations()
             .sink { _ in

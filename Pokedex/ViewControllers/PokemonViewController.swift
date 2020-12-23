@@ -37,6 +37,7 @@ extension PokemonViewController {
         super.configureView()
         
         tableView.register(PokemonStatsTableViewCell.nib, forCellReuseIdentifier: PokemonStatsTableViewCell.reuseIdentifier)
+        tableView.addRefreshControl()
         
         setupDataSource()
     }
@@ -76,6 +77,19 @@ extension PokemonViewController: UITableViewDataSource {
     }
 }
 
+extension PokemonViewController: UITableViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard scrollView == tableView else { return }
+        
+        tableView.afterRefreshControlIsFinished { [weak self] in
+            guard let self = self else { return }
+            
+            self.viewModel.getPokemon(id: self.viewModel.pokemonId)
+            self.viewModel.getLocations(id: self.viewModel.pokemonId)
+        }
+    }
+}
+
 extension PokemonViewController {
     private func subscribeToPokemon() {
         viewModel.$pokemonViewModel
@@ -89,7 +103,7 @@ extension PokemonViewController {
                 }
                 
                 guard let viewModel = viewModel else {
-                    self.setupDataSource()
+                    self.dataSource.removeAllItems(in: .pokemon)
                     return
                 }
                 
@@ -102,7 +116,10 @@ extension PokemonViewController {
         viewModel.$locations
             .sink { [weak self] locations in
                 guard let self = self else { return }
-                guard locations?.isEmpty == false else { return }
+                guard locations?.isEmpty == false else {
+                    self.navigationItem.rightBarButtonItem = nil
+                    return
+                }
                 
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "지도 보기", style: .plain, target: self, action: #selector(self.onMapTapped(_:)))
             }
@@ -114,7 +131,7 @@ extension PokemonViewController {
     @objc private func onMapTapped(_ sender: UIBarButtonItem) {
         guard let locations = viewModel.locations else { return }
         
-        MapViewController.present(in: self, pokemonName: viewModel.pokemonSearchResult.koreanName, locations: locations)
+        MapViewController.present(in: self, pokemonName: viewModel.pokemonName, locations: locations)
     }
 }
 
