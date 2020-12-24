@@ -97,6 +97,10 @@ extension SearchViewController: UITableViewDelegate {
         return .leastNonzeroMagnitude
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard scrollView == tableView else { return }
         
