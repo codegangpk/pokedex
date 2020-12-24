@@ -33,6 +33,12 @@ final class SearchViewController: BaseViewController {
 }
 
 extension SearchViewController {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationItem.titleView?.endEditing(true)
+    }
+    
     override func configureView() {
         super.configureView()
         
