@@ -168,7 +168,6 @@
 		690920CC258D364600A5742E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				690920CF258D369800A5742E /* ParsingModel */,
 				690920D2258D36B800A5742E /* PokemonSearchResult.swift */,
 				696D7173258D49A800503328 /* PokemonSearchResults.swift */,
 				6943D2F6258E51C80046B98D /* Pokemon.swift */,
@@ -267,7 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				69418A09258D358B005C070D /* Repositories */,
-				69D7D339258D1D5B000857D5 /* Networking */,
+				690920CF258D369800A5742E /* ParsingModel */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -280,6 +279,7 @@
 				69503EF2259426FA0060440E /* Presentation */,
 				69503EF4259427040060440E /* Domain */,
 				69503EF5259427140060440E /* Data */,
+				69D7D339258D1D5B000857D5 /* Networking */,
 			);
 			path = Application;
 			sourceTree = "<group>";
