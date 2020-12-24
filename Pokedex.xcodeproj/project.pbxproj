@@ -39,7 +39,6 @@
 		695175F6258CDAAE00B52A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F5258CDAAE00B52A6C /* AppDelegate.swift */; };
 		695175F8258CDAAE00B52A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695175F7258CDAAE00B52A6C /* SceneDelegate.swift */; };
 		695175FC258CDAB000B52A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695175FB258CDAB000B52A6C /* Assets.xcassets */; };
-		695175FF258CDAB000B52A6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 695175FE258CDAB000B52A6C /* Preview Assets.xcassets */; };
 		69517602258CDAB000B52A6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69517600258CDAB000B52A6C /* LaunchScreen.storyboard */; };
 		69517613258CE40500B52A6C /* SearchViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69517612258CE40500B52A6C /* SearchViewViewModel.swift */; };
 		69531B75258CE5D00002B627 /* BaseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69531B74258CE5D00002B627 /* BaseViewViewModel.swift */; };
@@ -111,7 +110,6 @@
 		695175F5258CDAAE00B52A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		695175F7258CDAAE00B52A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		695175FB258CDAB000B52A6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		695175FE258CDAB000B52A6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		69517601258CDAB000B52A6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69517603258CDAB000B52A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69517612258CE40500B52A6C /* SearchViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewViewModel.swift; sourceTree = "<group>"; };
@@ -309,17 +307,8 @@
 				693F972E258CE9E600105167 /* Extensions */,
 				690FA725258D19D7000424BD /* Utilities */,
 				6951760D258CE06200B52A6C /* Assets */,
-				695175FD258CDAB000B52A6C /* Preview Content */,
 			);
 			path = Pokedex;
-			sourceTree = "<group>";
-		};
-		695175FD258CDAB000B52A6C /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				695175FE258CDAB000B52A6C /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		6951760A258CDF9F00B52A6C /* ViewControllers */ = {
@@ -524,7 +513,6 @@
 				696D7190258DD6E500503328 /* BaseView.xib in Resources */,
 				691EE577258DE3DE00886F52 /* PokemonStatsTableViewCell.xib in Resources */,
 				69433A0A258D438200E3BBB4 /* PokemonTableViewCell.xib in Resources */,
-				695175FF258CDAB000B52A6C /* Preview Assets.xcassets in Resources */,
 				690FA71F258D1995000424BD /* SearchViewController.xib in Resources */,
 				6975BDD9258F45DC00551D70 /* MapViewController.xib in Resources */,
 				695175FC258CDAB000B52A6C /* Assets.xcassets in Resources */,
