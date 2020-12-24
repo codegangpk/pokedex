@@ -89,12 +89,15 @@ extension SearchViewController: UITableViewDelegate {
         let row = dataSource.item(for: indexPath)
         switch row {
         case .pokemon(let viewModel):
-            navigationItem.titleView?.endEditing(true)
             PokemonViewController.push(in: self, pokemonSearchResult: viewModel.pokemonSearchResult)
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return .leastNonzeroMagnitude
     }
     
