@@ -9,14 +9,14 @@ import Foundation
 import Combine
 
 final class SearchViewViewModel: BaseViewViewModel {
-    private let pokemonRepository: PokemonMockingRepository
+    private let pokemonUseCase: PokemonUseCase
     
     @Published var pokemonSearchResults: [PokemonSearchResult] = []
     @Published var searchText: String = ""
     @Published var pokemonViewModels: [PokemonTableViewCellViewModel] = []
     
-    init(pokemonRepository: PokemonMockingRepository = PokemonMockingRepository()) {
-        self.pokemonRepository = pokemonRepository
+    init(pokemonUseCase: PokemonUseCase = PokemonUseCase()) {
+        self.pokemonUseCase = pokemonUseCase
         
         super.init()
 
@@ -28,7 +28,7 @@ final class SearchViewViewModel: BaseViewViewModel {
 extension SearchViewViewModel {
     func getPokemonList() {
         beginNetworkRequest()
-        pokemonRepository
+        pokemonUseCase
             .getPokemonList()
             .sink(
                 receiveCompletion: completeNetworkRequest(completion:),

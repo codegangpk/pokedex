@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-struct PokemonMockingRepository {
-    private let session: API
-    private let baseURL = URL(string: "https://demo0928971.mockable.io")!
+struct PokemonMockingRepository: PokemonMockingRepositoriable {
+    let session: API
+    let baseURL = URL(string: "https://demo0928971.mockable.io")!
     
     init(session: API = API()) {
         self.session = session
