@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,9 +31,9 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="gAl-wY-3Km" secondAttribute="bottom" id="0lx-tP-hTr"/>
-                <constraint firstItem="gAl-wY-3Km" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ATp-ey-jkV"/>
+                <constraint firstItem="gAl-wY-3Km" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ATp-ey-jkV"/>
                 <constraint firstItem="gAl-wY-3Km" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="CMQ-cM-H0R"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gAl-wY-3Km" secondAttribute="trailing" id="HoL-Kl-WMy"/>
+                <constraint firstAttribute="trailing" secondItem="gAl-wY-3Km" secondAttribute="trailing" id="HoL-Kl-WMy"/>
             </constraints>
             <point key="canvasLocation" x="-157" y="-30"/>
         </view>
