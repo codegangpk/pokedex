@@ -116,11 +116,8 @@ extension SearchViewController {
                 guard let self = self else { return }
                 
                 self.dataSource.removeAllItems(in: .pokemons)
-                
-                if viewModels.isEmpty == false {
-                    let rows: [Row] = viewModels.compactMap { .pokemon($0) }
-                    self.dataSource.append(rows, in: .pokemons)
-                }
+                let rows: [Row] = viewModels.compactMap { .pokemon($0) }
+                self.dataSource.append(rows, in: .pokemons)
                 
                 self.tableView.reloadData()
             }
