@@ -279,7 +279,6 @@
 				69503EF2259426FA0060440E /* Presentation */,
 				69503EF4259427040060440E /* Domain */,
 				69503EF5259427140060440E /* Data */,
-				69D7D339258D1D5B000857D5 /* Networking */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -304,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				69503EF7259427640060440E /* Application */,
+				69D7D339258D1D5B000857D5 /* Networking */,
 				693F972E258CE9E600105167 /* Extensions */,
 				690FA725258D19D7000424BD /* Utilities */,
 				6951760D258CE06200B52A6C /* Assets */,
