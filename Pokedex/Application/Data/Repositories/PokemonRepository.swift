@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 struct PokemonRepository: PokemonRepositoriable {
-    private let session: API
-    private let baseURL = URL(string: "https://pokeapi.co/api/v2")!
+    let session: API
+    let baseURL = URL(string: "https://pokeapi.co/api/v2")!
     
     init(session: API = API()) {
         self.session = session

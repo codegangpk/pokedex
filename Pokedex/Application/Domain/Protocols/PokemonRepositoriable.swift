@@ -8,6 +8,6 @@
 import Foundation
 import Combine
 
-protocol PokemonRepositoriable {
+protocol PokemonRepositoriable: Repositoriable {
     func getPokemon(id: Int) -> AnyPublisher<Pokemon, NetworkError>
 }
