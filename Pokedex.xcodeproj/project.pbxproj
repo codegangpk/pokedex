@@ -199,9 +199,6 @@
 				690FA722258D19D0000424BD /* Bindable.swift */,
 				696D7182258DD47800503328 /* RuntimeError.swift */,
 				696D7185258DD49400503328 /* GlobalFunctions.swift */,
-				696D7188258DD52B00503328 /* UIApplication+Extension.swift */,
-				696D718B258DD63800503328 /* UIView+Extension.swift */,
-				691EE57D258DE55600886F52 /* UIImageView+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -230,6 +227,9 @@
 				696D716D258D47D800503328 /* NSObject+Extension.swift */,
 				6914EEA2258F906200A0DAE1 /* MKMapView+Extension.swift */,
 				69E9D7C425934DEB00B963B1 /* UIScrollView+Extension.swift */,
+				696D7188258DD52B00503328 /* UIApplication+Extension.swift */,
+				696D718B258DD63800503328 /* UIView+Extension.swift */,
+				691EE57D258DE55600886F52 /* UIImageView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
