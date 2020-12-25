@@ -1,5 +1,5 @@
 //
-//  API.swift
+//  NetworkService.swift
 //  Pokedex
 //
 //  Created by Paul Kim on 2020/12/19.
@@ -9,15 +9,19 @@ import Foundation
 import Alamofire
 import Combine
 
-struct API {
-    let session: Session = {
+struct NetworkService {
+    static let shared: NetworkService = NetworkService()
+    
+    private let session: Session = {
         let configuration = URLSessionConfiguration.af.default
         configuration.timeoutIntervalForRequest = 10.0
         return Session(configuration: configuration)
     }()
+    
+    private init() {}
 }
 
-extension API {
+extension NetworkService {
     @discardableResult
     func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model?, NetworkError> {
         Future { promise in

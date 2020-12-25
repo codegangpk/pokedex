@@ -8,6 +8,6 @@
 import Foundation
 
 protocol Repositoriable {
-    var session: API { get }
+    var networkService: NetworkService { get }
     var baseURL: URL { get }
 }

@@ -9,17 +9,17 @@ import Foundation
 import Combine
 
 struct PokemonRepository: PokemonRepositoriable {
-    let session: API
+    let networkService: NetworkService
     let baseURL = URL(string: "https://pokeapi.co/api/v2")!
     
-    init(session: API = API()) {
-        self.session = session
+    init(session: NetworkService = NetworkService.shared) {
+        self.networkService = session
     }
 }
 
 extension PokemonRepository {
     func getPokemon(id: Int) -> AnyPublisher<Pokemon, NetworkError> {
-        return session.call(
+        return networkService.call(
             EndPoint(
                 baseURL: baseURL,
                 httpMethod: .get,
