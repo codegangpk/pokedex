@@ -37,23 +37,32 @@ extension NetworkService {
                     NetworkLogger.log(.outGoing($0))
                 })
                 .validate()
-                .responseData { (response) in
+                .responseData(queue: .global(qos: .utility)) { (response) in
                     NetworkLogger.log(.inComing(response.data, response.response, response.error))
+                    
+                    let result: Result<Model?, NetworkError>
+                    defer {
+                        DispatchQueue.main.async {
+                            promise(result)
+                        }
+                    }
+                    
                     if let error = response.error {
                         let networkError = NetworkError(responseCode: error.responseCode)
-                        promise(.failure(networkError))
+                        result = .failure(networkError)
+                        return
                     }
                     
                     guard let data = response.data else {
-                        promise(.success(nil))
+                        result = .success(nil)
                         return
                     }
                     
                     do {
                         let responseObject = try JSONDecoder().decode(model, from: data)
-                        promise(.success(responseObject))
+                        result = .success(responseObject)
                     } catch {
-                        promise(.failure(NetworkError.modelParsingFailed))
+                        result = .failure(NetworkError.modelParsingFailed)
                     }
                 }
         }
