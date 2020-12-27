@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import Combine
+import RxSwift
 
 //WARNING: do not configure or customize!! use only for setting lightweight style
 class BaseViewController: UIViewController {
-    var subscribers = Set<AnyCancellable>()
+    let disposeBag = DisposeBag()
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -42,26 +42,37 @@ extension BaseViewController {
 
 extension BaseViewController {
     func subscribeForLoading(for viewModel: BaseViewViewModel) {
-        viewModel.$isLoading.sink { [weak self] in
-            guard let self = self else { return }
-            
-            if $0 {
-                self.view.showLoader()
-            } else {
-                self.view.hideLoader()
+        viewModel.isLoading
+            .subscribe { [weak self] in
+                guard let self = self else { return }
+                
+                switch $0 {
+                case .next(let isLoading):
+                    if isLoading {
+                        self.view.showLoader()
+                    } else {
+                        self.view.hideLoader()
+                    }
+                default:
+                    break
+                }
             }
-        }
-        .store(in: &subscribers)
+            .disposed(by: disposeBag)
     }
     
     func subscribeForNetworkError(for viewModel: BaseViewViewModel, errorHandler: @escaping (NetworkError) -> Void) {
-        viewModel.$networkError
-            .sink { networkError in
-                guard let networkError = networkError else { return }
-                
-                errorHandler(networkError)
+        viewModel.networkError
+            .subscribe {
+                switch $0 {
+                case .next(let networkError):
+                    guard let networkError = networkError else { return }
+                    
+                    errorHandler(networkError)
+                default:
+                    break
+                }
             }
-            .store(in: &subscribers)
+            .disposed(by: disposeBag)
     }
 }
 

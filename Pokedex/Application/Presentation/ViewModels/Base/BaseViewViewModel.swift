@@ -6,24 +6,26 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 class BaseViewViewModel {
-    @Published var isLoading: Bool = false
-    @Published var networkError: NetworkError?
+    let isLoading: BehaviorSubject<Bool> = .init(value: false)
+    let networkError: BehaviorSubject<NetworkError?> = .init(value: nil)
     
-    var subscribers = Set<AnyCancellable>()
+    let disposeBag = DisposeBag()
 }
 
 extension BaseViewViewModel {
     func beginNetworkRequest() {
-        self.isLoading = true
+        isLoading.onNext(true)
     }
     
-    func completeNetworkRequest(completion: Subscribers.Completion<NetworkError>) {
-        if case .failure(let networkError) = completion {
-            self.networkError = networkError
+    func completeNetworkRequest<T>(completion: Event<T>) {
+        if case .error(let error) = completion {
+            guard let networkError = error as? NetworkError else { return }
+            
+            self.networkError.onNext(networkError)
         }
-        self.isLoading = false
+        isLoading.onNext(false)
     }
 }

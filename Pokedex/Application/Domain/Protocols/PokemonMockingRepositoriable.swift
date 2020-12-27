@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 protocol PokemonMockingRepositoriable: Repositoriable {
-    func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError>
-    func getLocations() -> AnyPublisher<Locations, NetworkError>
+    func getPokemonList() -> Observable<PokemonSearchResults>
+    func getLocations() -> Observable<Locations>
 }

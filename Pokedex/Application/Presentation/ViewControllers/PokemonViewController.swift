@@ -100,41 +100,52 @@ extension PokemonViewController: UITableViewDelegate {
 
 extension PokemonViewController {
     private func subscribeToPokemon() {
-        viewModel.$pokemonViewModel
-            .sink { [weak self] viewModel in
+        viewModel.pokemonViewModel
+            .subscribe { [weak self] in
                 guard let self = self else { return }
                 
-                if let viewModel = viewModel {
-                    self.dataSource.append([.pokemon(viewModel)], in: .pokemon)
-                } else {
-                    self.dataSource.removeAllItems(in: .pokemon)
-                }
-                
-                guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
+                switch $0 {
+                case .next(let viewModel):
+                    if let viewModel = viewModel {
+                        self.dataSource.append([.pokemon(viewModel)], in: .pokemon)
+                    } else {
+                        self.dataSource.removeAllItems(in: .pokemon)
+                    }
                     
-                self.tableView.reloadSections([section], with: .automatic)
+                    guard let section = self.dataSource.sectionIndex(of: .pokemon) else { return }
+                    
+                    self.tableView.reloadSections([section], with: .automatic)
+                default:
+                    break
+                }
             }
-            .store(in: &subscribers)
+            .disposed(by: disposeBag)
     }
     
     private func subscribeToLocations() {
-        viewModel.$locations
-            .sink { [weak self] locations in
+        viewModel.locations
+            .subscribe { [weak self] in
                 guard let self = self else { return }
-                guard locations?.isEmpty == false else {
-                    self.navigationItem.rightBarButtonItem = nil
-                    return
-                }
                 
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "지도 보기", style: .plain, target: self, action: #selector(self.onMapTapped(_:)))
+                switch $0 {
+                case .next(let locations):
+                    guard locations?.isEmpty == false else {
+                        self.navigationItem.rightBarButtonItem = nil
+                        return
+                    }
+                    
+                    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "지도 보기", style: .plain, target: self, action: #selector(self.onMapTapped(_:)))
+                default:
+                    break
+                }
             }
-            .store(in: &subscribers)
+            .disposed(by: disposeBag)
     }
 }
 
 extension PokemonViewController {
     @objc private func onMapTapped(_ sender: UIBarButtonItem) {
-        guard let locations = viewModel.locations else { return }
+        guard let locations = try? viewModel.locations.value() else { return }
         
         MapViewController.present(in: self, pokemonName: viewModel.pokemonName, locations: locations)
     }

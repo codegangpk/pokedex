@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 struct PokemonMockingRepository: PokemonMockingRepositoriable {
     let networkService: NetworkService
@@ -18,7 +18,7 @@ struct PokemonMockingRepository: PokemonMockingRepositoriable {
 }
 
 extension PokemonMockingRepository {
-    func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError> {
+    func getPokemonList() -> Observable<PokemonSearchResults> {
         return networkService.call(
             EndPoint(
                 baseURL: baseURL,
@@ -28,10 +28,9 @@ extension PokemonMockingRepository {
             for: PokemonSearchResultsModel.self
         )
         .compactMap { PokemonSearchResults(pokemonSearchResultsModel: $0) }
-        .eraseToAnyPublisher()
     }
     
-    func getLocations() -> AnyPublisher<Locations, NetworkError> {
+    func getLocations() -> Observable<Locations> {
         return networkService.call(
             EndPoint(
                 baseURL: baseURL,
@@ -42,6 +41,5 @@ extension PokemonMockingRepository {
             for: LocationsModel.self
         )
         .compactMap { Locations(locationsModel: $0) }
-        .eraseToAnyPublisher()
     }
 }

@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 protocol PokemonRepositoriable: Repositoriable {
-    func getPokemon(id: Int) -> AnyPublisher<Pokemon, NetworkError>
+    func getPokemon(id: Int) -> Observable<Pokemon>
 }

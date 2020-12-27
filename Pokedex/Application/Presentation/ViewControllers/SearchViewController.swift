@@ -45,7 +45,7 @@ extension SearchViewController {
         navigationItem.titleView = SearchBar(placeholder: "포켓몬 이름을 입력해주세요.") { [weak self] _, text in
             guard let self = self else { return }
             
-            self.viewModel.searchText = text
+            self.viewModel.searchText.onNext(text)
         }
         
         tableView.register(PokemonTableViewCell.nib, forCellReuseIdentifier: PokemonTableViewCell.reuseIdentifier)
@@ -120,17 +120,20 @@ extension SearchViewController: UITableViewDelegate {
 
 extension SearchViewController {
     private func subscribeForPokemonViewModels() {
-        viewModel.$pokemonViewModels
-            .sink { [weak self] viewModels in
-                guard let self = self else { return }
-                
-                self.dataSource.removeAllItems(in: .pokemons)
-                let rows: [Row] = viewModels.compactMap { .pokemon($0) }
-                self.dataSource.append(rows, in: .pokemons)
-                
-                self.tableView.reloadData()
+        viewModel.pokemonViewModels
+            .subscribe {
+                switch $0 {
+                case .next(let viewModels):
+                    self.dataSource.removeAllItems(in: .pokemons)
+                    let rows: [Row] = viewModels.compactMap { .pokemon($0) }
+                    self.dataSource.append(rows, in: .pokemons)
+                    
+                    self.tableView.reloadData()
+                default:
+                    break
+                }
             }
-            .store(in: &subscribers)
+            .disposed(by: disposeBag)
     }
 }
 

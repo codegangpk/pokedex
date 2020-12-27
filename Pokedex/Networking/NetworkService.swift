@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-import Combine
+import RxSwift
 
 struct NetworkService {
     static let shared: NetworkService = NetworkService()
@@ -23,9 +23,9 @@ struct NetworkService {
 
 extension NetworkService {
     @discardableResult
-    func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model?, NetworkError> {
-        Future { promise in
-            session
+    func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> Observable<Model?> {
+        return Single.create { single in
+            let request = session
                 .request(
                     endPoint.url,
                     method: endPoint.afHttpMethod,
@@ -38,17 +38,17 @@ extension NetworkService {
                 })
                 .validate()
                 .responseData(queue: .global(qos: .userInitiated)) { (response) in
-                    let result: Result<Model?, NetworkError>
+                    let result: SingleEvent<Model?>
                     defer {
                         DispatchQueue.main.async {
-                            promise(result)
+                            single(result)
                             NetworkLogger.log(.inComing(response.data, response.response, response.error))
                         }
                     }
                     
                     if let error = response.error {
                         let networkError = NetworkError(responseCode: error.responseCode)
-                        result = .failure(networkError)
+                        result = .error(networkError)
                         return
                     }
                     
@@ -61,10 +61,13 @@ extension NetworkService {
                         let responseObject = try JSONDecoder().decode(model, from: data)
                         result = .success(responseObject)
                     } catch {
-                        result = .failure(NetworkError.modelParsingFailed)
+                        result = .error(NetworkError.modelParsingFailed)
                     }
                 }
+            return Disposables.create {
+                request.cancel()
+            }
         }
-        .eraseToAnyPublisher()
+        .asObservable()
     }
 }

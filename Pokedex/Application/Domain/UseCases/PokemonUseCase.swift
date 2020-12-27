@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 struct PokemonUseCase {
     private let pokemonMockingRepository: PokemonMockingRepositoriable
@@ -22,15 +22,15 @@ struct PokemonUseCase {
 }
 
 extension PokemonUseCase {
-    func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError> {
+    func getPokemonList() -> Observable<PokemonSearchResults> {
         return pokemonMockingRepository.getPokemonList()
     }
     
-    func getLocations() -> AnyPublisher<Locations, NetworkError> {
+    func getLocations() -> Observable<Locations> {
         return pokemonMockingRepository.getLocations()
     }
     
-    func getPokemon(id: Int) -> AnyPublisher<Pokemon, NetworkError> {
+    func getPokemon(id: Int) -> Observable<Pokemon> {
         return pokemonRepository.getPokemon(id: id)
     }
 }

@@ -6,14 +6,14 @@
 //
 
 import Foundation
-import Combine
+import RxSwift
 
 final class PokemonViewViewModel: BaseViewViewModel {
     private let pokemonSearchResult: PokemonSearchResult
     private let pokemonUseCase: PokemonUseCase
     
-    @Published var pokemonViewModel: PokemonStatsTableViewCellViewModel?
-    @Published var locations: [Location]?
+    let pokemonViewModel: BehaviorSubject<PokemonStatsTableViewCellViewModel?> = .init(value: nil)
+    let locations: BehaviorSubject<[Location]?> = .init(value: nil)
     
     init(pokemonSearchResult: PokemonSearchResult,
          pokemonUseCase: PokemonUseCase = PokemonUseCase()
@@ -43,44 +43,43 @@ extension PokemonViewViewModel {
         beginNetworkRequest()
         pokemonUseCase
             .getPokemon(id: id)
-            .sink(
-                receiveCompletion: completeNetworkRequest(completion:),
-                receiveValue: { [weak self] pokemon in
-                    guard let self = self else { return }
-
-                    DispatchQueue.global(qos: .userInitiated).async { [ weak self] in
-                        guard let self = self else { return }
-                        
-                        let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
-
-                        DispatchQueue.main.async { [weak self] in
-                            guard let self = self,
-                                  self.pokemonViewModel != viewModel
-                            else { return }
-                            
-                            self.pokemonViewModel = viewModel
-                        }
-                    }
+            .observeOn(RxSchedulers.globalUserInitiated)
+            .compactMap {
+                PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: $0)
+            }
+            .observeOn(RxSchedulers.main)
+            .filter { try $0 != self.pokemonViewModel.value() }
+            .subscribe { [weak self] in
+                guard let self = self else { return }
+                
+                self.completeNetworkRequest(completion: $0)
+                
+                switch $0 {
+                case .next(let viewModel):
+                    self.pokemonViewModel.onNext(viewModel)
+                default:
+                    break
                 }
-            )
-            .store(in: &subscribers)
+            }
+            .disposed(by: disposeBag)
     }
     
     func getLocations(id: Int) {
         pokemonUseCase
             .getLocations()
-            .sink { _ in
-            } receiveValue: { [weak self] locations in
+            .observeOn(RxSchedulers.globalUserInitiated)
+            .compactMap { $0.pokemons?.filter { $0.id == id } }
+            .observeOn(RxSchedulers.main)
+            .subscribe { [weak self] in
                 guard let self = self else { return }
-
-                DispatchQueue.global(qos: .userInitiated).async {
-                    let locations = locations.pokemons?.filter { $0.id == id }
-                    
-                    DispatchQueue.main.async {
-                        self.locations = locations
-                    }
+                
+                switch $0 {
+                case .next(let locations):
+                    self.locations.onNext(locations)
+                default:
+                    break
                 }
             }
-            .store(in: &subscribers)
+            .disposed(by: disposeBag)
     }
 }

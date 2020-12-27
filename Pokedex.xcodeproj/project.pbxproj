@@ -22,6 +22,11 @@
 		691EE57B258DE50400886F52 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 691EE57A258DE50400886F52 /* Kingfisher */; };
 		691EE57E258DE55600886F52 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EE57D258DE55600886F52 /* UIImageView+Extension.swift */; };
 		691EE582258E35C000886F52 /* PokemonViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691EE581258E35C000886F52 /* PokemonViewViewModel.swift */; };
+		6938A7282598C5E6006F90E3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6938A7272598C5E6006F90E3 /* RxSwift */; };
+		6938A72C2598C5E6006F90E3 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 6938A72B2598C5E6006F90E3 /* RxRelay */; };
+		6938A72E2598C5E6006F90E3 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 6938A72D2598C5E6006F90E3 /* RxCocoa */; };
+		6938A7302598C5E6006F90E3 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 6938A72F2598C5E6006F90E3 /* RxBlocking */; };
+		6938A7342598E444006F90E3 /* RxSchedulers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6938A7332598E443006F90E3 /* RxSchedulers.swift */; };
 		693F9727258CE8FC00105167 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693F9726258CE8FC00105167 /* SFSymbols.swift */; };
 		69418A00258D2EDB005C070D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694189FF258D2EDB005C070D /* NetworkError.swift */; };
 		69418A03258D325E005C070D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69418A02258D325E005C070D /* Endpoint.swift */; };
@@ -94,6 +99,7 @@
 		691EE575258DE3DE00886F52 /* PokemonStatsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PokemonStatsTableViewCell.xib; sourceTree = "<group>"; };
 		691EE57D258DE55600886F52 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		691EE581258E35C000886F52 /* PokemonViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonViewViewModel.swift; sourceTree = "<group>"; };
+		6938A7332598E443006F90E3 /* RxSchedulers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSchedulers.swift; sourceTree = "<group>"; };
 		693F9726258CE8FC00105167 /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		694189FF258D2EDB005C070D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		69418A02258D325E005C070D /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -157,8 +163,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6938A72E2598C5E6006F90E3 /* RxCocoa in Frameworks */,
+				6938A72C2598C5E6006F90E3 /* RxRelay in Frameworks */,
+				6938A7282598C5E6006F90E3 /* RxSwift in Frameworks */,
 				691EE57B258DE50400886F52 /* Kingfisher in Frameworks */,
 				69D7D33E258D1DAA000857D5 /* Alamofire in Frameworks */,
+				6938A7302598C5E6006F90E3 /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +209,7 @@
 				690FA722258D19D0000424BD /* Bindable.swift */,
 				696D7182258DD47800503328 /* RuntimeError.swift */,
 				696D7185258DD49400503328 /* GlobalFunctions.swift */,
+				6938A7332598E443006F90E3 /* RxSchedulers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -460,6 +471,10 @@
 			packageProductDependencies = (
 				69D7D33D258D1DAA000857D5 /* Alamofire */,
 				691EE57A258DE50400886F52 /* Kingfisher */,
+				6938A7272598C5E6006F90E3 /* RxSwift */,
+				6938A72B2598C5E6006F90E3 /* RxRelay */,
+				6938A72D2598C5E6006F90E3 /* RxCocoa */,
+				6938A72F2598C5E6006F90E3 /* RxBlocking */,
 			);
 			productName = Pokedex;
 			productReference = 695175F2258CDAAE00B52A6C /* Pokedex.app */;
@@ -491,6 +506,7 @@
 			packageReferences = (
 				69D7D33C258D1DAA000857D5 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				691EE579258DE50400886F52 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				6938A7262598C5E6006F90E3 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 695175F3258CDAAE00B52A6C /* Products */;
 			projectDirPath = "";
@@ -526,6 +542,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6938A7342598E444006F90E3 /* RxSchedulers.swift in Sources */,
 				696D718C258DD63800503328 /* UIView+Extension.swift in Sources */,
 				694D88E3258E58A300CB4C28 /* PokemonStatsTableViewCellViewModel.swift in Sources */,
 				6975BDC9258F39A700551D70 /* LocationsModel.swift in Sources */,
@@ -791,6 +808,14 @@
 				minimumVersion = 5.15.8;
 			};
 		};
+		6938A7262598C5E6006F90E3 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 		69D7D33C258D1DAA000857D5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -806,6 +831,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 691EE579258DE50400886F52 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		6938A7272598C5E6006F90E3 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6938A7262598C5E6006F90E3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		6938A72B2598C5E6006F90E3 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6938A7262598C5E6006F90E3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		6938A72D2598C5E6006F90E3 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6938A7262598C5E6006F90E3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		6938A72F2598C5E6006F90E3 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6938A7262598C5E6006F90E3 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
 		};
 		69D7D33D258D1DAA000857D5 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
