@@ -44,9 +44,13 @@ extension SearchViewViewModel {
     private func subscribeForSearchText() {
         $searchText
             .combineLatest($pokemonSearchResults)
-            .compactMap { searchText, pokemonSearchResults in
-                return pokemonSearchResults
-                    .filter {
+            .sink { [weak self] (searchText, pokemonSearchResults) in
+                guard let self = self else { return }
+                
+                DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                    guard let self = self else { return }
+                    
+                    let viewModels = pokemonSearchResults.filter {
                         guard searchText.isEmpty == false else { return true }
                         
                         return $0.name(for: searchText) != nil
@@ -54,9 +58,17 @@ extension SearchViewViewModel {
                     .compactMap {
                         PokemonTableViewCellViewModel(keyword: searchText, pokemonSearchResult: $0)
                     }
+                    
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        
+                        guard self.pokemonViewModels != viewModels else { return }
+                        
+                        self.pokemonViewModels = viewModels
+                    }
+                }
             }
-            .filter { $0 != self.pokemonViewModels }
-            .assign(to: \.pokemonViewModels, on: self)
             .store(in: &subscribers)
     }
 }
+
