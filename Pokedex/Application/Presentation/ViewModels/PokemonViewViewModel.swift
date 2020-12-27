@@ -48,11 +48,19 @@ extension PokemonViewViewModel {
                 receiveValue: { [weak self] pokemon in
                     guard let self = self else { return }
 
-                    let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
+                    DispatchQueue.global(qos: .userInitiated).async { [ weak self] in
+                        guard let self = self else { return }
+                        
+                        let viewModel = PokemonStatsTableViewCellViewModel(pokemonSearchResult: self.pokemonSearchResult, pokemon: pokemon)
 
-                    guard self.pokemonViewModel != viewModel else { return }
-                    
-                    self.pokemonViewModel = viewModel
+                        DispatchQueue.main.async { [weak self] in
+                            guard let self = self,
+                                  self.pokemonViewModel != viewModel
+                            else { return }
+                            
+                            self.pokemonViewModel = viewModel
+                        }
+                    }
                 }
             )
             .store(in: &subscribers)
@@ -64,9 +72,14 @@ extension PokemonViewViewModel {
             .sink { _ in
             } receiveValue: { [weak self] locations in
                 guard let self = self else { return }
-                
-                self.locations = locations.pokemons?
-                    .filter { $0.id == id } ?? []
+
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let locations = locations.pokemons?.filter { $0.id == id }
+                    
+                    DispatchQueue.main.async {
+                        self.locations = locations
+                    }
+                }
             }
             .store(in: &subscribers)
     }

@@ -13,6 +13,7 @@ struct NetworkLogger {
     }
     
     static func log(_ mode: Mode, id: String? = nil) {
+        #if DEBUG
         switch mode {
         case .outGoing(let request):
             let urlString = request.url?.absoluteString ?? ""
@@ -84,5 +85,6 @@ struct NetworkLogger {
             responseLog += "\n<-------------------------\n"
             print(responseLog)
         }
+        #endif
     }
 }

@@ -9,17 +9,17 @@ import Foundation
 import Combine
 
 struct PokemonMockingRepository: PokemonMockingRepositoriable {
-    let session: API
+    let networkService: NetworkService
     let baseURL = URL(string: "https://demo0928971.mockable.io")!
     
-    init(session: API = API()) {
-        self.session = session
+    init(session: NetworkService = NetworkService.shared) {
+        self.networkService = session
     }
 }
 
 extension PokemonMockingRepository {
     func getPokemonList() -> AnyPublisher<PokemonSearchResults, NetworkError> {
-        return session.call(
+        return networkService.call(
             EndPoint(
                 baseURL: baseURL,
                 httpMethod: .get,
@@ -32,7 +32,7 @@ extension PokemonMockingRepository {
     }
     
     func getLocations() -> AnyPublisher<Locations, NetworkError> {
-        return session.call(
+        return networkService.call(
             EndPoint(
                 baseURL: baseURL,
                 httpMethod: .get,

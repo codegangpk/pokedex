@@ -1,5 +1,5 @@
 //
-//  API.swift
+//  NetworkService.swift
 //  Pokedex
 //
 //  Created by Paul Kim on 2020/12/19.
@@ -9,15 +9,19 @@ import Foundation
 import Alamofire
 import Combine
 
-struct API {
-    let session: Session = {
+struct NetworkService {
+    static let shared: NetworkService = NetworkService()
+    
+    private let session: Session = {
         let configuration = URLSessionConfiguration.af.default
         configuration.timeoutIntervalForRequest = 10.0
         return Session(configuration: configuration)
     }()
+    
+    private init() {}
 }
 
-extension API {
+extension NetworkService {
     @discardableResult
     func call<Model: Codable>(_ endPoint: EndPointable, for model: Model.Type) -> AnyPublisher<Model?, NetworkError> {
         Future { promise in
@@ -33,23 +37,31 @@ extension API {
                     NetworkLogger.log(.outGoing($0))
                 })
                 .validate()
-                .responseData { (response) in
-                    NetworkLogger.log(.inComing(response.data, response.response, response.error))
+                .responseData(queue: .global(qos: .userInitiated)) { (response) in
+                    let result: Result<Model?, NetworkError>
+                    defer {
+                        DispatchQueue.main.async {
+                            promise(result)
+                            NetworkLogger.log(.inComing(response.data, response.response, response.error))
+                        }
+                    }
+                    
                     if let error = response.error {
                         let networkError = NetworkError(responseCode: error.responseCode)
-                        promise(.failure(networkError))
+                        result = .failure(networkError)
+                        return
                     }
                     
                     guard let data = response.data else {
-                        promise(.success(nil))
+                        result = .success(nil)
                         return
                     }
                     
                     do {
                         let responseObject = try JSONDecoder().decode(model, from: data)
-                        promise(.success(responseObject))
+                        result = .success(responseObject)
                     } catch {
-                        promise(.failure(NetworkError.modelParsingFailed))
+                        result = .failure(NetworkError.modelParsingFailed)
                     }
                 }
         }
