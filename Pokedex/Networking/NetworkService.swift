@@ -37,13 +37,12 @@ extension NetworkService {
                     NetworkLogger.log(.outGoing($0))
                 })
                 .validate()
-                .responseData(queue: .global(qos: .utility)) { (response) in
-                    NetworkLogger.log(.inComing(response.data, response.response, response.error))
-                    
+                .responseData(queue: .global(qos: .userInitiated)) { (response) in
                     let result: Result<Model?, NetworkError>
                     defer {
                         DispatchQueue.main.async {
                             promise(result)
+                            NetworkLogger.log(.inComing(response.data, response.response, response.error))
                         }
                     }
                     
