@@ -33,7 +33,9 @@ extension SearchViewViewModel {
             .observeOn(RxSchedulers.globalUserInitiated)
             .map { $0.pokemons ?? [] }
             .observeOn(RxSchedulers.main)
-            .subscribe {
+            .subscribe { [weak self] in
+                guard let self = self else { return }
+                
                 self.completeNetworkRequest(completion: $0)
                 
                 switch $0 {
@@ -59,7 +61,9 @@ extension SearchViewViewModel {
             }
             .observeOn(RxSchedulers.main)
             .filter { try self.pokemonViewModels.value() != $0 }
-            .subscribe {
+            .subscribe { [weak self] in
+                guard let self = self else { return }
+                
                 self.completeNetworkRequest(completion: $0)
                 
                 switch $0 {
